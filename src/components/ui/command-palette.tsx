@@ -3,7 +3,6 @@
 import { FC, useEffect, useState, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
-import { useRouter } from 'next/navigation'
 import { Search, User, Layers, Briefcase, FolderGit2, PenLine, Mail, Github, Linkedin, Twitter, FileDown, Sun, Moon, CornerDownLeft, SearchX } from 'lucide-react'
 
 type Category = 'navigation' | 'actions' | 'socials'
@@ -28,7 +27,6 @@ export const CommandPalette: FC = () => {
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const { theme, setTheme } = useTheme()
-  const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 

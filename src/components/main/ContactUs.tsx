@@ -1,6 +1,6 @@
 'use client'
 
-import { Mail, Phone, MapPin, Copy, Send, Loader2, ExternalLink } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -52,11 +52,6 @@ export const ContactUs: FC = () => {
       setIsSubmitting(false)
       setTimeout(() => setStatus(''), 5000)
     }
-  }
-
-  const copyToClipboard = (text: string, label: string) => {
-    navigator.clipboard.writeText(text)
-    toast.success(`${label} copied to clipboard!`)
   }
 
   const inputClasses = "w-full px-3.5 py-2.5 bg-transparent border border-border/50 rounded text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-brand-blue/60 focus:ring-1 focus:ring-brand-blue/15 transition-all duration-200"

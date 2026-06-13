@@ -1,10 +1,8 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { FC, useEffect, useState } from 'react'
 import { FaDownload } from 'react-icons/fa'
-import { FileText } from 'lucide-react'
 
 const Document = dynamic(() => import('react-pdf').then((mod) => mod.Document), { ssr: false })
 const Page = dynamic(() => import('react-pdf').then((mod) => mod.Page), { ssr: false })
