@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion'
 import { FC, useState } from 'react'
 import Image from 'next/image'
-import { FaFileDownload, FaCheckCircle, FaLightbulb } from 'react-icons/fa'
-import { ArrowDown } from 'lucide-react'
+import { FaFileDownload } from 'react-icons/fa'
+import { ArrowDown, BadgeCheck } from 'lucide-react'
 
 const tickerItems = [
   { name: 'go', icon: 'go' },
@@ -146,7 +146,9 @@ export const Hero: FC = () => {
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
                     Ashlok Chaudhary
                   </h1>
-                  <FaCheckCircle className="text-brand-blue h-5 w-5 sm:h-6 sm:w-6 shrink-0" title="Verified Professional" />
+                  <span title="Verified" className="shrink-0 inline-flex">
+                    <BadgeCheck className="h-5 w-5 sm:h-6 sm:w-6 fill-brand-blue text-background" strokeWidth={2.5} />
+                  </span>
                 </div>
                 <h2 className="text-lg sm:text-xl font-mono text-muted-foreground tracking-wide">
                   Software Development Engineer
