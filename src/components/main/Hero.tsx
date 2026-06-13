@@ -195,7 +195,7 @@ export const Hero: FC = () => {
             `}</style>
             
             {/* Box with Grid Outline & Gradient Fades */}
-            <div className="relative -mx-6 border-y border-border bg-card/25 h-[42px] flex items-stretch overflow-hidden">
+            <div className="relative border-y border-border bg-card/25 h-[42px] flex items-stretch overflow-hidden">
               {/* Fade gradients */}
               <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
               <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
