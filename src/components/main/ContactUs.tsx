@@ -1,20 +1,8 @@
 'use client'
 
-import { Variants, motion } from 'framer-motion'
-import { MessageCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Copy, Send, Loader2, ExternalLink } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPaperPlane,
-  FaRegCopy,
-  FaSpinner,
-  FaUser,
-} from 'react-icons/fa'
-import { FaSquarePhone } from 'react-icons/fa6'
-import { buttonVariants } from '../ui/button'
-import { cn } from '@/lib/utils'
 
 interface FormData {
   name: string
@@ -23,7 +11,7 @@ interface FormData {
   message: string
 }
 
-const ContactUs: FC = () => {
+export const ContactUs: FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -50,13 +38,16 @@ const ContactUs: FC = () => {
       })
 
       if (response.ok) {
-        setStatus('Message sent successfully!')
+        setStatus('MESSAGE_DELIVERED')
+        toast.success('Message sent successfully!')
         setFormData({ name: '', email: '', subject: '', message: '' })
       } else {
-        setStatus('Failed to send message. Please try again.')
+        setStatus('ERROR_FAILED_TO_SEND')
+        toast.error('Failed to send message.')
       }
     } catch {
-      setStatus('An error occurred. Please try again later.')
+      setStatus('ERROR_CONNECTION_REFUSED')
+      toast.error('An error occurred.')
     } finally {
       setIsSubmitting(false)
       setTimeout(() => setStatus(''), 5000)
@@ -65,172 +56,199 @@ const ContactUs: FC = () => {
 
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text)
-    toast.success(`${label} copied!`)
+    toast.success(`${label} copied to clipboard!`)
   }
 
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 50, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-    hover: {
-      scale: 1.02,
-      transition: { duration: 0.3 },
-    },
-  }
-
-  const inputVariants: Variants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.4, delay: i * 0.1 },
-    }),
-  }
+  const inputClasses = "w-full px-3.5 py-2.5 bg-transparent border border-border/50 rounded text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-brand-blue/60 focus:ring-1 focus:ring-brand-blue/15 transition-all duration-200"
 
   return (
-    <section id="contact" className="py-20 bg-background text-foreground transition-colors">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="max-w-7xl mx-auto bg-muted/50 backdrop-blur-lg rounded-none p-8 sm:p-10 shadow-2xl border border-border"
-          variants={cardVariants}
-          initial="hidden"
-          animate="visible"
-          whileHover="hover"
-        >
-          <div className="flex flex-col md:flex-row gap-12">
-            <motion.div
-              className="w-full md:w-1/2 space-y-6"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <h2 className="text-4xl font-extrabold">Connect With Me</h2>
-              <p className="text-muted-foreground leading-relaxed text-base">
-                Have a project in mind or a question? Reach out and let&apos;s turn your ideas into
-                reality.
-              </p>
+    <section id="contact" className="relative w-full bg-background transition-colors">
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
+        {/* Left Margin */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
 
-              <div className="space-y-5 text-foreground">
-                <div className="flex items-center gap-3">
-                  <FaEnvelope className="text-primary text-lg" />
-                  <span className="text-sm font-medium select-text">chaudharyashlok@gmail.com</span>
-                  <button
-                    onClick={() => copyToClipboard('chaudharyashlok@gmail.com', 'Email')}
-                    className="text-muted-foreground hover:text-primary transition"
-                    aria-label="Copy email"
-                  >
-                    <FaRegCopy />
-                  </button>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaSquarePhone className="text-primary text-lg" />
-                  <span className="text-sm font-medium select-text">+91 77670 12860</span>
-                  <button
-                    onClick={() => copyToClipboard('+91 7767012860', 'Phone number')}
-                    className="text-muted-foreground hover:text-primary transition"
-                    aria-label="Copy phone number"
-                  >
-                    <FaRegCopy />
-                  </button>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaMapMarkerAlt className="text-primary text-lg" />
-                  <span className="text-sm font-medium select-text">Mumbai, India</span>
+        {/* Content Cell */}
+        <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-12">
+          {/* Section Header on Border Line */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
+            <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
+              DISPATCH MESSAGE
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 items-start">
+
+            {/* Left Side */}
+            <div className="flex flex-col justify-between h-full gap-8">
+              {/* Header */}
+              <div>
+                <h3 className="text-2xl font-semibold tracking-tight text-foreground mb-3">
+                  Let&apos;s Build<br />Something Together
+                </h3>
+                <p className="text-[13px] text-muted-foreground/70 leading-relaxed">
+                  Whether you have a project in mind, a technical challenge, or just want to connect — I&apos;d love to hear from you.
+                </p>
+              </div>
+
+              {/* Contact Channels */}
+              <div className="space-y-4">
+                {/* Email */}
+                <a
+                  href="mailto:chaudharyashlok@gmail.com"
+                  className="group flex items-start gap-3 hover:translate-x-0.5 transition-transform duration-200"
+                >
+                  <div className="shrink-0 mt-0.5 text-foreground">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
+                      chaudharyashlok@gmail.com
+                    </span>
+                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">Preferred for project inquiries</span>
+                  </div>
+                </a>
+
+                {/* Phone */}
+                <a
+                  href="tel:+917767012860"
+                  className="group flex items-start gap-3 hover:translate-x-0.5 transition-transform duration-200"
+                >
+                  <div className="shrink-0 mt-0.5 text-foreground">
+                    <Phone className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
+                      +91 77670 12860
+                    </span>
+                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">Available Mon–Sat, 10am–7pm IST</span>
+                  </div>
+                </a>
+
+                {/* Location */}
+                <div className="flex items-start gap-3">
+                  <div className="shrink-0 mt-0.5 text-foreground">
+                    <MapPin className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <span className="block text-sm font-medium text-foreground/90">
+                      Mumbai, India
+                    </span>
+                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">Open to remote & hybrid roles</span>
+                  </div>
                 </div>
               </div>
-            </motion.div>
 
-            <motion.div
-              className="w-full md:w-1/2 space-y-6"
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <form onSubmit={handleSubmit} className="space-y-5" aria-label="Contact Form">
-                {['name', 'email', 'subject'].map((field, i) => (
-                  <motion.div
-                    key={field}
-                    custom={i}
-                    variants={inputVariants}
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    <div className="relative">
-                      {field === 'name' && (
-                        <FaUser className="absolute top-3.5 left-3 text-muted-foreground" />
-                      )}
-                      {field === 'email' && (
-                        <FaEnvelope className="absolute top-3.5 left-3 text-muted-foreground" />
-                      )}
-                      {field === 'subject' && (
-                        <MessageCircle className="absolute top-3.5 left-3 text-muted-foreground" />
-                      )}
-                      <input
-                        type={field === 'email' ? 'email' : 'text'}
-                        name={field}
-                        value={formData[field as keyof FormData]}
-                        onChange={handleChange}
-                        placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                        className="w-full pl-10 pr-4 py-3 bg-background/50 text-foreground rounded-none focus:outline-none focus:ring-2 focus:ring-primary placeholder-muted-foreground transition-all"
-                        required
-                        aria-label={field}
-                      />
-                    </div>
-                  </motion.div>
-                ))}
-                <motion.div custom={3} variants={inputVariants} initial="hidden" animate="visible">
-                  <textarea
-                    name="message"
-                    value={formData.message}
+              {/* Availability */}
+              <div className="flex items-center gap-2.5 text-[11px] text-muted-foreground/80">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                </span>
+                <span>Currently available for new opportunities</span>
+              </div>
+            </div>
+
+            {/* Right Side: Form */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="space-y-1.5">
+                  <label htmlFor="name" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    value={formData.name}
                     onChange={handleChange}
-                    placeholder="Please Drop Your Short Message..."
-                    className="w-full pl-4 pr-4 py-3 bg-background/50 text-foreground rounded-none h-36 resize-none focus:outline-none focus:ring-2 focus:ring-primary placeholder-muted-foreground transition-all"
+                    placeholder="John Doe"
                     required
-                    aria-label="Message"
+                    className={inputClasses}
                   />
-                </motion.div>
-                <motion.button
-                  type="submit"
-                  className={cn(
-                    buttonVariants({
-                      className:
-                        'w-full py-3 rounded-none flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed',
-                    }),
-                  )}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <FaSpinner className="animate-spin" /> Sending...
-                    </>
-                  ) : (
-                    <>
-                      <FaPaperPlane /> Send Message
-                    </>
-                  )}
-                </motion.button>
-                {status && (
-                  <motion.p
-                    className={`text-center text-sm ${
-                      status.includes('successfully') ? 'text-green-500' : 'text-red-500'
-                    }`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {status}
-                  </motion.p>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="email" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="name@company.com"
+                    required
+                    className={inputClasses}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label htmlFor="subject" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                  Subject
+                </label>
+                <input
+                  id="subject"
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="Project collaboration, technical inquiry..."
+                  required
+                  className={inputClasses}
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label htmlFor="message" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project or idea..."
+                  required
+                  rows={6}
+                  className={`${inputClasses} resize-none`}
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-3 bg-foreground hover:bg-foreground/90 text-background rounded text-xs font-semibold uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-black/10"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-3.5 w-3.5" />
+                    <span>Send Message</span>
+                  </>
                 )}
-              </form>
-            </motion.div>
+              </button>
+
+              {status && (
+                <div className={`p-3 rounded text-center text-xs font-medium ${
+                  status.includes('DELIVERED')
+                    ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+                    : 'bg-destructive/10 border border-destructive/20 text-destructive'
+                }`}>
+                  {status.includes('DELIVERED') ? '✓ Message sent successfully' : 'Failed to send — please try again'}
+                </div>
+              )}
+            </form>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Right Margin */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
       </div>
     </section>
   )
