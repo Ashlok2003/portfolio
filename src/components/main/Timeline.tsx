@@ -1,151 +1,204 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { FC, JSX } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FC, useState } from 'react'
 import Image from 'next/image'
-import { Timeline as TimelineComponent } from '@/components/ui/timeline'
-import { FaBriefcase, FaBuilding, FaCode, FaLaptopCode } from 'react-icons/fa'
+import { experienceData, Experience } from '@/constants'
+import { Plus, Minus, Briefcase } from 'lucide-react'
 
-export interface TimelineItem {
-  id: number
-  type: 'work' | 'project'
-  title: string
-  company: string
-  location: string
-  date: string
-  imageURL: string
-  description: string
-  achievements: string[]
-  icon: JSX.Element
-  companyIcon: JSX.Element
+const getCompanyLogo = (company: string): string => {
+  const c = company.toLowerCase().trim()
+  if (c.includes('openleaf')) return '/openleaf_logo.png'
+  if (c.includes('whatbytes')) return '/whatbytes_logo.jpeg'
+  if (c.includes('talent corner')) return '/talent-corner-logo.png'
+  return ''
 }
 
-export const timelineData: TimelineItem[] = [
-  {
-    id: 1,
-    type: 'work',
-    title: 'Django Backend Developer Intern',
-    company: 'WhatBytes',
-    location: 'Remote',
-    date: 'Sep 2025 - Present',
-    imageURL: '/whatbytes_logo.jpeg',
-    description:
-      'Designing and implementing scalable, secure, and high-performance backend systems with Django and REST APIs.',
-    achievements: [
-      'Built and optimized RESTful APIs with Django REST Framework (DRF).',
-      'Implemented authentication, role-based access control, and secure session management.',
-      'Optimized database queries with PostgreSQL for high-performance data retrieval.',
-    ],
-    icon: <FaBriefcase className="w-6 h-6 text-primary" />,
-    companyIcon: <FaBuilding className="w-8 h-8 text-blue-500" />,
-  },
-  {
-    id: 2,
-    type: 'work',
-    title: 'Full Stack Developer Intern',
-    company: 'Talent Corner HR Services Pvt. Ltd.',
-    location: 'Remote',
-    date: 'Apr 2025 - Jul 2025',
-    imageURL: '/talent-corner-logo.png',
-    description: 'Built scalable lead management and data scraping platforms.',
-    achievements: [
-      'Engineered lead verification & enrichment with Node.js & MySQL.',
-      'Developed reusable React components for dashboards.',
-      'Implemented modular architecture with controller-service pattern.',
-    ],
-    icon: <FaBriefcase className="w-6 h-6 text-primary" />,
-    companyIcon: <FaBuilding className="w-8 h-8 text-orange-500" />,
-  },
-  {
-    id: 3,
-    type: 'project',
-    title: 'Architect & Developer of ShopXIndia',
-    company: 'Personal Project',
-    location: 'Remote',
-    imageURL: '/shopxindia.png',
-    date: 'Feb 2024 - Sep 2025',
-    description: 'E-commerce platform using microservices and AWS.',
-    achievements: [
-      'Implemented CI/CD with AWS CodePipeline, CodeBuild, and CodeDeploy.',
-      'Integrated AWS S3, RDS, ElastiCache, CloudFront, and Cognito.',
-      'Orchestrated containerized services on ECS with Service Connect & Cloud Map.',
-    ],
-    icon: <FaCode className="w-6 h-6 text-primary" />,
-    companyIcon: <FaLaptopCode className="w-8 h-8 text-blue-500" />,
-  },
-]
+const getIconKey = (tag: string): string => {
+  const t = tag.toLowerCase().trim()
+  if (t === 'go' || t === 'golang') return 'go'
+  if (t === 'rust') return 'rust'
+  if (t === 'nodejs' || t === 'node.js') return 'nodejs'
+  if (t === 'python') return 'py'
+  if (t === 'django') return 'django'
+  if (t === 'postgres' || t === 'postgresql') return 'postgres'
+  if (t === 'redis') return 'redis'
+  if (t === 'kubernetes') return 'kubernetes'
+  if (t === 'docker') return 'docker'
+  if (t === 'aws') return 'aws'
+  if (t === 'terraform') return 'terraform'
+  if (t === 'graphql') return 'graphql'
+  if (t === 'react') return 'react'
+  if (t === 'nextjs' || t === 'next.js') return 'nextjs'
+  if (t === 'typescript' || t === 'ts') return 'ts'
+  if (t === 'javascript' || t === 'js') return 'js'
+  if (t === 'express') return 'express'
+  if (t === 'spring' || t === 'spring boot') return 'spring'
+  if (t === 'mongodb') return 'mongodb'
+  if (t === 'mysql') return 'mysql'
+  if (t === 'prisma') return 'prisma'
+  if (t === 'redux') return 'redux'
+  if (t === 'tailwind' || t === 'tailwindcss') return 'tailwind'
+  if (t === 'git') return 'git'
+  if (t === 'githubactions' || t === 'github actions') return 'githubactions'
+  if (t === 'prometheus') return 'prometheus'
+  if (t === 'grafana') return 'grafana'
+  if (t === 'linux') return 'linux'
+  if (t === 'bash') return 'bash'
+  if (t === 'postman') return 'postman'
+  if (t === 'bun') return 'bun'
+  if (t === 'gcp') return 'gcp'
+  if (t === 'cloudflare') return 'cloudflare'
+  if (t === 'elasticsearch') return 'elasticsearch'
+  if (t === 'rabbitmq') return 'rabbitmq'
+  if (t === 'kafka') return 'kafka'
+  if (t === 'jenkins') return 'jenkins'
+  if (t === 'ansible') return 'ansible'
+  if (t === 'nginx') return 'nginx'
+  if (t === 'cpp' || t === 'c++') return 'cpp'
+  if (t === 'fastapi') return 'fastapi'
+  return ''
+}
 
-export const TimelineElement: FC<{ item: TimelineItem; index: number }> = ({ item, index }) => (
-  <div className="space-y-6" key={index}>
-    <div className="flex items-center gap-4">
-      {item.type === 'work' && (
-        <Image
-          src={item.imageURL}
-          alt={`${item.company} Logo`}
-          width={48}
-          height={48}
-          className="rounded-md shadow bg-muted p-1"
-        />
-      )}
-      <div>
-        <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-        <p className="text-sm text-muted-foreground">
-          {item.company} • {item.location}
-        </p>
-        <p className="text-sm text-muted-foreground">{item.date}</p>
-      </div>
-    </div>
+export const Timeline: FC = () => {
+  const [expandedId, setExpandedId] = useState<number | null>(0) // Expand first (current) by default
 
-    <p className="text-sm text-muted-foreground">{item.description}</p>
-
-    <ul className="list-disc pl-5 space-y-1 text-sm text-foreground">
-      {item.achievements.map((ach) => (
-        <li key={ach}>{ach}</li>
-      ))}
-    </ul>
-
-    {item.type === 'project' && (
-      <div className="w-full mt-4">
-        <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-lg overflow-hidden shadow-md bg-background">
-          <Image
-            src={item.imageURL}
-            alt={`${item.title} Architecture`}
-            className="object-contain"
-            loading="lazy"
-            fill
-          />
-        </div>
-      </div>
-    )}
-  </div>
-)
-
-const Timeline: FC = () => {
-  const timelineContent = timelineData.map((item) => ({
-    title: item.date,
-    content: <TimelineElement key={item.id} item={item} index={item.id} />,
-  }))
+  const toggleExpand = (id: number) => {
+    setExpandedId(expandedId === id ? null : id)
+  }
 
   return (
-    <section id="experience" className="py-20 bg-background text-foreground transition-colors">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold tracking-tight text-primary">
-            Professional Experience & Projects
-          </h1>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-base">
-            Highlights of my career and key projects showcasing my skills & impact.
-          </p>
-        </motion.div>
+    <section id="experience" className="relative w-full bg-background transition-colors">
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
+        {/* Left margin diagonal stripes */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
 
-        <div className="relative w-full">
-          <TimelineComponent data={timelineContent} />
+        {/* Content Container */}
+        <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-10">
+          {/* Section Header on Border Line */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
+            <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
+              EXPERIENCE
+            </span>
+          </div>
+
+          <div className="space-y-0 border-b border-border">
+            {experienceData.map((exp: Experience) => {
+              const isExpanded = expandedId === exp.id
+
+              return (
+                <div
+                  key={exp.id}
+                  className="border-t border-border hover:bg-muted/10 transition-colors duration-200"
+                >
+                  {/* Accordion Trigger Header */}
+                  <button
+                    onClick={() => toggleExpand(exp.id)}
+                    className="w-full text-left py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus:outline-none cursor-pointer"
+                  >
+                    <div className="flex items-start gap-4">
+                      {(() => {
+                        const companyLogo = getCompanyLogo(exp.company)
+                        return (
+                          <div className="size-10 border border-border rounded-md bg-white flex items-center justify-center shrink-0 mt-0.5 overflow-hidden">
+                            {companyLogo ? (
+                              <Image
+                                src={companyLogo}
+                                alt={exp.company}
+                                width={40}
+                                height={40}
+                                className="size-full object-contain p-1"
+                              />
+                            ) : (
+                              <Briefcase className="h-4 w-4 text-muted-foreground" />
+                            )}
+                          </div>
+                        )
+                      })()}
+                      <div>
+                        <h3 className="text-base font-semibold tracking-tight text-foreground">
+                          {exp.role}
+                        </h3>
+                        <p className="text-xs font-mono text-muted-foreground mt-0.5">
+                          {exp.company} • {exp.location}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-2 sm:mt-0">
+                      <span className="font-mono text-[11px] text-muted-foreground">
+                        {exp.date}
+                      </span>
+                      <div className="text-muted-foreground border border-border p-1 rounded hover:text-foreground transition-colors">
+                        {isExpanded ? (
+                          <Minus className="h-3 w-3" />
+                        ) : (
+                          <Plus className="h-3 w-3" />
+                        )}
+                      </div>
+                    </div>
+                  </button>
+
+                  {/* Accordion Expandable Content */}
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pb-8 pl-0 sm:pl-14 pr-2 space-y-4">
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {exp.description}
+                          </p>
+
+                          {/* Achievements Bullets */}
+                          <ul className="space-y-2.5">
+                            {exp.achievements.map((bullet, idx) => (
+                              <li key={idx} className="text-xs text-foreground/85 flex items-start gap-2.5 leading-relaxed">
+                                <span className="text-brand-blue font-mono mt-0.5">&gt;</span>
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+
+                          {/* Tech Tags */}
+                          <div className="flex flex-wrap gap-1.5 pt-2">
+                            {exp.tags.map((tag) => {
+                              const iconKey = getIconKey(tag)
+                              return (
+                                <span
+                                  key={tag}
+                                  className="flex items-center gap-1.5 font-mono text-[10px] border border-border rounded px-2 py-0.5 text-muted-foreground hover:border-brand-blue/30 hover:text-foreground transition-colors bg-muted/5"
+                                >
+                                  {iconKey && (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                      src={`https://skillicons.dev/icons?i=${iconKey}`}
+                                      alt={tag}
+                                      className="w-3.5 h-3.5 object-contain"
+                                      loading="lazy"
+                                    />
+                                  )}
+                                  <span>{tag}</span>
+                                </span>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )
+            })}
+          </div>
         </div>
+
+        {/* Right margin diagonal stripes */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
       </div>
     </section>
   )
