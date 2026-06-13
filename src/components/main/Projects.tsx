@@ -98,12 +98,17 @@ export const Projects: FC = () => {
                     className="w-full text-left p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus:outline-none cursor-pointer"
                   >
                     <div className="flex items-start gap-4">
-                      <div className={`p-2 border rounded shrink-0 mt-0.5 transition-colors duration-300 ${
+                      <div className={`size-10 border rounded-lg shrink-0 mt-0.5 overflow-hidden transition-all duration-300 flex items-center justify-center ${
                         isExpanded 
-                          ? 'border-brand-blue/30 bg-brand-blue/5 text-brand-blue' 
-                          : 'border-border bg-muted/20 text-muted-foreground'
+                          ? 'border-brand-blue/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]' 
+                          : 'border-border'
                       }`}>
-                        <FolderOpen className="h-4 w-4" />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={project.title.toLowerCase() === 'snappy pro' ? '/snappy-logo.png' : `/${project.title.toLowerCase().replace(' ', '-')}-logo.png`}
+                          alt={`${project.title} logo`}
+                          className={`size-full object-cover scale-[1.35] transition-all duration-300 ${isExpanded ? 'scale-[1.45]' : 'opacity-95 group-hover:opacity-100 group-hover:scale-[1.45]'}`}
+                        />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">

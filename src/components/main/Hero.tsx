@@ -195,13 +195,13 @@ export const Hero: FC = () => {
             `}</style>
             
             {/* Box with Grid Outline & Gradient Fades */}
-            <div className="relative -mx-6 border-y border-border bg-card/25 py-3 flex items-center overflow-hidden">
+            <div className="relative -mx-6 border-y border-border bg-card/25 h-[42px] flex items-stretch overflow-hidden">
               {/* Fade gradients */}
               <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
               <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
               
               <div className="flex w-full overflow-hidden">
-                <div className="flex items-center gap-10 whitespace-nowrap shrink-0 animate-marquee">
+                <div className="flex items-stretch gap-10 whitespace-nowrap shrink-0 animate-marquee">
                   {/* Render the list multiple times to ensure coverage */}
                   {[...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems].map((item, idx) => (
                     <div key={idx} className="flex items-center gap-2 font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
@@ -213,7 +213,7 @@ export const Hero: FC = () => {
                         loading="lazy"
                       />
                       <span>{item.name}</span>
-                      <span className="text-muted-foreground/35 select-none ml-6">|</span>
+                      <div className="w-px h-full bg-border/50 ml-6" />
                     </div>
                   ))}
                 </div>
