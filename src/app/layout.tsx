@@ -1,6 +1,8 @@
 import Footer from '@/components/main/Footer'
 import { Navbar } from '@/components/main/Navbar'
 import { ThemeProvider } from '@/components/theme-provider'
+import ScrollProgress from '@/components/ui/scroll-progress'
+import { CommandPalette } from '@/components/ui/command-palette'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -16,9 +18,58 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Ashlok Chaudhary',
+  title: 'Ashlok Chaudhary — Backend & Platform Engineer',
   description:
-    'A clean, modern, and responsive developer portfolio showcasing my projects, skills, and experience. Built using Next.js and styled with Tailwind CSS and ShadCN UI, and deployed seamlessly on Cloudflare Pages for speed and scalability.',
+    'Personal portfolio of Ashlok Chaudhary, a Backend & Platform Engineer building scalable, reliable, production-grade distributed systems, microservices, and cloud infrastructure.',
+  keywords: [
+    'Ashlok Chaudhary',
+    'Backend Engineer',
+    'Platform Engineer',
+    'Systems Developer',
+    'Go developer',
+    'Rust developer',
+    'Kubernetes SRE',
+    'Next.js portfolio',
+    'Software Engineer India',
+  ],
+  authors: [{ name: 'Ashlok Chaudhary', url: 'https://github.com/Ashlok2003' }],
+  creator: 'Ashlok Chaudhary',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://ashlok.dev',
+    title: 'Ashlok Chaudhary — Backend & Platform Engineer',
+    description:
+      'Backend & Platform Engineer building scalable systems — microservices, cloud infrastructure, and the tooling that keeps them running.',
+    siteName: 'Ashlok Chaudhary Portfolio',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Ashlok Chaudhary Portfolio',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ashlok Chaudhary — Backend & Platform Engineer',
+    description:
+      'Backend & Platform Engineer building scalable systems — microservices, cloud infrastructure, and the tooling that keeps them running.',
+    creator: '@ashlok2003',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 }
 
 export default function RootLayout({
@@ -28,17 +79,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground custom-scrollbar overflow-x-hidden`}
+      >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
+          <ScrollProgress />
+          <CommandPalette />
           <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
-        <Footer />
       </body>
     </html>
   )
