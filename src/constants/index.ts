@@ -93,17 +93,18 @@ export const experienceData: Experience[] = [
   },
   {
     id: 1,
-    role: 'Django Backend Developer Intern',
+    role: 'Backend Developer Intern',
     company: 'WhatBytes',
     location: 'Remote',
-    date: 'Sep 2025 - Present',
-    description: 'Designing and implementing scalable, secure, and high-performance backend systems with Django and REST APIs.',
+    date: 'Sep 2025 - Mar 2026',
+    description: 'Designed and implemented scalable backend systems, LLM integrations, and automated analytics pipelines.',
     achievements: [
-      'Built and optimized RESTful APIs with Django REST Framework (DRF).',
-      'Implemented authentication, role-based access control (RBAC), and secure session management.',
-      'Optimized database queries with PostgreSQL, decreasing indexing load and latency.',
+      'Engineered a comprehensive ad analytics flow and LinkedIn ads scraper, enabling automated data extraction and deep performance insights.',
+      'Built robust media processing pipelines integrated with OpenAI Whisper for automated audio/video transcription and analysis.',
+      'Integrated LLMs and OpenSearch to power advanced semantic search and AI-driven data processing capabilities.',
+      'Architected and deployed end-to-end CI/CD pipelines to automate testing and deployments, ensuring high reliability.',
     ],
-    tags: ['Django', 'DRF', 'PostgreSQL', 'REST APIs', 'RBAC'],
+    tags: ['Django', 'Python', 'LLMs', 'OpenSearch', 'OpenAI Whisper', 'CI/CD', 'Web Scraping'],
   },
   {
     id: 2,
@@ -113,11 +114,12 @@ export const experienceData: Experience[] = [
     date: 'Apr 2025 - Jul 2025',
     description: 'Engineered high-performance lead management and data scraping pipelines.',
     achievements: [
-      'Engineered lead verification & enrichment platform with Node.js & MySQL.',
-      'Developed reusable dashboard components and modules in React.',
-      'Implemented clean, modular architecture with controller-service-repository patterns.',
+      'Engineered a scalable lead management and verification platform using Node.js and MySQL, streamlining data enrichment pipelines.',
+      'Developed intuitive, reusable dashboard modules in React, delivering real-time business metrics and actionable analytics.',
+      'Implemented a clean, modular architecture using controller-service-repository patterns to ensure high maintainability.',
+      'Set up CI/CD pipelines to automate the build, test, and deployment processes, accelerating feature delivery.',
     ],
-    tags: ['Node.js', 'MySQL', 'React', 'Data Scraping', 'Clean Architecture'],
+    tags: ['Node.js', 'MySQL', 'React', 'Data Scraping', 'Clean Architecture', 'CI/CD'],
   },
 ]
 
