@@ -1,11 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { FC, useEffect, useState } from 'react'
-import { FaLinkedin, FaTwitter } from 'react-icons/fa'
-import { RxGithubLogo } from 'react-icons/rx'
+import { FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa'
+import { ArrowUpRight, Heart, ChevronUp } from 'lucide-react'
 
-const Footer: FC = () => {
+export const Footer: FC = () => {
   const [visitorCount, setVisitorCount] = useState<number>(0)
 
   useEffect(() => {
@@ -13,9 +12,13 @@ const Footer: FC = () => {
     const lastVisit = localStorage.getItem('lastVisit')
     const today = new Date().toDateString()
 
-    let count = savedCount ? parseInt(savedCount, 10) : 0
+    let count = savedCount ? parseInt(savedCount, 10) : 1000
 
-    if (!lastVisit || lastVisit !== today) {
+    if (!savedCount) {
+      // Seed baseline at 1K on first visit
+      localStorage.setItem('visitorCount', count.toString())
+      localStorage.setItem('lastVisit', today)
+    } else if (!lastVisit || lastVisit !== today) {
       count += 1
       localStorage.setItem('visitorCount', count.toString())
       localStorage.setItem('lastVisit', today)
@@ -27,114 +30,80 @@ const Footer: FC = () => {
   const socialLinks = [
     {
       href: 'https://github.com/Ashlok2003',
-      icon: <RxGithubLogo className="w-5 h-5" />,
+      icon: <FaGithub className="w-3.5 h-3.5" />,
       label: 'GitHub',
     },
     {
       href: 'https://www.linkedin.com/in/ashlok2003/',
-      icon: <FaLinkedin className="w-5 h-5" />,
+      icon: <FaLinkedin className="w-3.5 h-3.5" />,
       label: 'LinkedIn',
     },
     {
       href: 'https://x.com/ashlok2003',
-      icon: <FaTwitter className="w-5 h-5" />,
+      icon: <FaTwitter className="w-3.5 h-3.5" />,
       label: 'Twitter',
     },
   ]
 
-  const quickLinks = ['About', 'Skills', 'Projects']
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  const childVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
-    <footer className="relative w-full px-6 py-12 mt-20 bg-background text-foreground border-t border-border transition-colors">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500" />
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div className="space-y-4" variants={childVariants}>
-            <h1 className="text-2xl font-extrabold bg-clip-text">Ashlok Chaudhary</h1>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Crafting scalable web apps, open-source tools, and innovative digital experiences.
-            </p>
-          </motion.div>
+    <footer className="relative w-full bg-background text-foreground transition-colors">
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
+        {/* Left Margin */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
 
-          <motion.div className="space-y-4" variants={childVariants}>
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Quick Links
-            </h2>
-            <ul className="space-y-2 text-sm">
-              {quickLinks.map((item) => (
-                <li key={item}>
-                  <a
-                    href={`#${item.toLowerCase()}`}
-                    className="hover:text-primary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary"
-                    aria-label={`Navigate to ${item} section`}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+        {/* Content Cell */}
+        <div className="border-x border-border min-[880px]:border-x-0">
 
-          <motion.div className="space-y-4" variants={childVariants}>
-            <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-              Connect
-            </h2>
-            <div className="flex flex-wrap gap-3">
+          {/* Top Row: Social links + Back to top */}
+          <div className="px-6 py-5 flex items-center justify-between border-b border-border/40">
+            {/* Social Links */}
+            <div className="flex items-center gap-5">
               {socialLinks.map((link) => (
-                <motion.a
+                <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-10 h-10 bg-muted rounded-full hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white transition-all duration-300"
-                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  className="group flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
                   aria-label={`Visit my ${link.label} profile`}
                 >
-                  {link.icon}
-                </motion.a>
+                  <span className="flex items-center justify-center w-8 h-8 border border-border/60 rounded-md group-hover:border-brand-blue/40 group-hover:bg-brand-blue/5 transition-all duration-200">
+                    {link.icon}
+                  </span>
+                  <span className="hidden sm:block text-xs font-medium">{link.label}</span>
+                  <ArrowUpRight className="hidden sm:block w-3 h-3 opacity-0 -translate-x-1 group-hover:opacity-50 group-hover:translate-x-0 transition-all duration-200" />
+                </a>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
 
-        <motion.div
-          className="mt-12 text-center space-y-2"
-          variants={childVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Built with ❤️ by Ashlok Chaudhary.
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Visitors:{' '}
-            <span className="font-semibold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              {visitorCount.toLocaleString()}
-            </span>
-          </p>
-        </motion.div>
+            {/* Back to Top */}
+            <button
+              onClick={scrollToTop}
+              className="group flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground font-medium transition-colors duration-200 cursor-pointer"
+            >
+              <span className="hidden sm:block">Back to Top</span>
+              <span className="flex items-center justify-center w-8 h-8 border border-border/60 rounded-md group-hover:border-brand-blue/40 group-hover:bg-brand-blue/5 transition-all duration-200">
+                <ChevronUp className="w-4 h-4" />
+              </span>
+            </button>
+          </div>
+
+          {/* Bottom Row */}
+          <div className="px-6 py-4 flex items-center justify-center gap-2 text-[11px] text-muted-foreground/50 font-mono tracking-wide">
+            <span>© {new Date().getFullYear()} Ashlok Chaudhary</span>
+            <span className="text-border">·</span>
+            <span className="flex items-center gap-1">Built with <Heart className="w-2.5 h-2.5 text-rose-500/60 fill-rose-500/60" /> Next.js</span>
+            <span className="text-border">·</span>
+            <span className="tabular-nums">{visitorCount.toLocaleString()} visits</span>
+          </div>
+        </div>
+
+        {/* Right Margin */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
       </div>
     </footer>
   )
