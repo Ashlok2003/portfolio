@@ -3,8 +3,15 @@
 import { motion } from 'framer-motion'
 import { FC } from 'react'
 
-const SKILLICONS_URL =
-  'https://skillicons.dev/icons?i=js,ts,python,cpp,go,rust,react,nextjs,nodejs,express,django,spring,graphql,fastapi,postgres,mongodb,redis,mysql,elasticsearch,rabbitmq,kafka,aws,gcp,cloudflare,docker,kubernetes,terraform,git,githubactions,jenkins,ansible,nginx,prometheus,grafana,linux,bash,postman,bun&perline=19'
+const SKILLS_LIST =
+  'js,ts,python,cpp,go,rust,react,nextjs,nodejs,express,django,spring,graphql,fastapi,postgres,mongodb,redis,mysql,elasticsearch,rabbitmq,kafka,aws,gcp,cloudflare,docker,kubernetes,terraform,git,githubactions,jenkins,ansible,nginx,prometheus,grafana,linux,bash,postman,bun'
+
+// Curated core stack on mobile (24 = 3 rows of 8) so each icon renders larger
+const SKILLS_LIST_MOBILE =
+  'js,ts,python,go,react,nextjs,nodejs,graphql,postgres,mongodb,redis,kafka,aws,gcp,cloudflare,docker,kubernetes,terraform,git,githubactions,nginx,linux,bash,grafana'
+
+const SKILLICONS_URL_MOBILE = `https://skillicons.dev/icons?i=${SKILLS_LIST_MOBILE}&perline=8`
+const SKILLICONS_URL_DESKTOP = `https://skillicons.dev/icons?i=${SKILLS_LIST}&perline=19`
 
 export const Skills: FC = () => {
   return (
@@ -29,10 +36,18 @@ export const Skills: FC = () => {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={SKILLICONS_URL}
+              src={SKILLICONS_URL_MOBILE}
               alt="Tech Stack"
               width="100%"
-              className="w-full h-auto"
+              className="block min-[880px]:hidden w-full h-auto"
+              loading="lazy"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={SKILLICONS_URL_DESKTOP}
+              alt="Tech Stack"
+              width="100%"
+              className="hidden min-[880px]:block w-full h-auto"
               loading="lazy"
             />
           </motion.div>

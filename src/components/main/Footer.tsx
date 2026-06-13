@@ -93,7 +93,7 @@ export const Footer: FC = () => {
           </div>
 
           {/* Bottom Row */}
-          <div className="px-6 py-4 flex items-center justify-center gap-2 text-[11px] text-muted-foreground/50 font-mono tracking-wide">
+          <div className="px-6 py-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[11px] text-muted-foreground/50 font-mono tracking-wide">
             <span>© {new Date().getFullYear()} Ashlok Chaudhary</span>
             <span className="text-border">·</span>
             <span className="flex items-center gap-1">Built with <Heart className="w-2.5 h-2.5 text-rose-500/60 fill-rose-500/60" /> Next.js</span>
