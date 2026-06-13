@@ -1,23 +1,17 @@
 'use client'
 
 import React, { useState } from 'react'
-import { GitHubCalendar } from 'react-github-calendar'
+import { GitHubCalendar, Activity } from 'react-github-calendar'
 import { useTheme } from 'next-themes'
-
-interface ContributionDay {
-  date: string
-  count: number
-  level: number
-}
 
 export const GithubActivity: React.FC = () => {
   const { theme } = useTheme()
   const [total, setTotal] = useState<number | null>(null)
 
   // Filter contributions to only show the last 9 months to keep it compact and prevent horizontal scrolling
-  const selectLastHalfYear = (contributions: ContributionDay[]) => {
+  const selectLastHalfYear = (contributions: Activity[]) => {
     // Calculate the accurate total count for the full year before filtering
-    const currentTotal = contributions.reduce((sum: number, day: ContributionDay) => sum + day.count, 0)
+    const currentTotal = contributions.reduce((sum: number, day: Activity) => sum + day.count, 0)
     if (total !== currentTotal) {
       setTimeout(() => setTotal(currentTotal), 0)
     }
@@ -26,7 +20,7 @@ export const GithubActivity: React.FC = () => {
     const monthsAgo = new Date()
     monthsAgo.setMonth(today.getMonth() - 9)
 
-    return contributions.filter((day: ContributionDay) => {
+    return contributions.filter((day: Activity) => {
       const date = new Date(day.date)
       return date >= monthsAgo
     })
