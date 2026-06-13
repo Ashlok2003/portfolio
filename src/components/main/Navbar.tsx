@@ -1,107 +1,166 @@
 'use client'
 
-import {
-  MobileNav,
-  MobileNavHeader,
-  MobileNavMenu,
-  MobileNavToggle,
-  NavBody,
-  NavItems,
-  NavbarLogo,
-  Navbar as NavbarWrapper,
-} from '@/components/ui/resizable-navbar'
-import { ThemeToggle } from '@/hooks/use-toogle'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { FaBlog, FaBriefcase, FaCode, FaEnvelope, FaProjectDiagram, FaUser } from 'react-icons/fa'
-import { Button } from '../ui/button'
+import { FaGithub } from 'react-icons/fa'
+import { Sun, Moon, Menu, X, Search } from 'lucide-react'
 
 export function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  const navItems = [
-    { name: 'About', link: '#about', icon: <FaUser /> },
-    { name: 'Skills', link: '#skills', icon: <FaCode /> },
-    { name: 'Experience', link: '#experience', icon: <FaBriefcase /> },
-    { name: 'Projects', link: '#projects', icon: <FaProjectDiagram /> },
-    { name: 'Blogs', link: '#blogs', icon: <FaBlog /> },
-  ]
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    setMounted(true)
   }, [])
 
+  const navItems = [
+    { name: 'about', link: '#about' },
+    { name: 'experience', link: '#experience' },
+    { name: 'projects', link: '#projects' },
+    { name: 'blogs', link: '#blogs' },
+    { name: 'contact', link: '#contact' },
+  ]
+
+  const handleNavClick = (link: string) => {
+    setIsOpen(false)
+    const element = document.querySelector(link)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
-    <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300`}>
-      <NavbarWrapper className="flex flex-col items-center justify-between gap-4 px-4 py-2">
-        <NavBody>
-          <NavbarLogo isScrolled={isScrolled} />
+    <header className="fixed top-0 left-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-40">
+      {/* 3-Column Grid bounded within max-width container */}
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
+        {/* Left Margin Stripe Cell */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
 
-          <NavItems items={navItems} isScrolled={isScrolled} />
-
-          <div className="flex items-center gap-2">
-            <ThemeToggle />
-            <Button
-              variant="default"
-              className="rounded-full z-50"
-              onClick={() => {
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-              }}
+        {/* Content Cell */}
+        <div className="px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <Link
+              href="#about"
+              onClick={() => handleNavClick('#about')}
+              className="shrink-0 hover:opacity-80 transition-opacity"
+              aria-label="Go to top"
             >
-              <FaEnvelope />
-            </Button>
+              <Image
+                src="/ashlok.jpg"
+                alt="Ashlok Chaudhary"
+                width={30}
+                height={30}
+                className="rounded-full border border-border object-cover"
+                priority
+              />
+            </Link>
+            
+            {/* Desktop Navigation Links */}
+            <nav className="hidden min-[880px]:flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={`nav-${item.name}`}
+                  href={item.link}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavClick(item.link)
+                  }}
+                  className="font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
           </div>
-        </NavBody>
 
-        <MobileNav>
-          <MobileNavHeader>
-            <NavbarLogo isScrolled={isScrolled} />
-            <MobileNavToggle
-              isOpen={isMobileMenuOpen}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            />
-          </MobileNavHeader>
+          <div className="flex items-center gap-3">
+            {/* Command Search Shortcut Indicator */}
+            <button
+              onClick={() => {
+                const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true, ctrlKey: true })
+                window.dispatchEvent(event)
+              }}
+              className="hidden sm:flex items-center gap-2 px-2.5 py-1.5 border border-border rounded-md font-mono text-[10px] text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all"
+            >
+              <Search className="h-3 w-3" />
+              <span>Search</span>
+              <kbd className="px-1 border border-border rounded bg-muted font-sans text-[9px]">Ctrl K</kbd>
+            </button>
 
-          <MobileNavMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)}>
-            {navItems.map((item) => (
-              <Link
-                key={`mobile-link-${item.name}`}
-                href={item.link}
-                onClick={() => {
-                  setIsMobileMenuOpen(false)
-                  document
-                    .getElementById(item.link.slice(1))
-                    ?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="relative text-neutral-600 dark:text-neutral-300 flex gap-2 items-center"
+            {/* GitHub Repo link */}
+            <a
+              href="https://github.com/Ashlok2003/portfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 border border-border rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
+              aria-label="GitHub Repository"
+            >
+              <FaGithub className="h-4 w-4" />
+            </a>
+
+            {/* Direct click theme switch button */}
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="p-2 border border-border rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
+                aria-label="Toggle Theme"
               >
-                {item.icon} <span>{item.name}</span>
-              </Link>
-            ))}
-            <div className="flex w-full flex-col gap-4">
-              <ThemeToggle />
-              <Button
-                onClick={() => {
-                  setIsMobileMenuOpen(false)
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                variant="default"
-                className="w-full rounded-full"
-              >
-                <FaEnvelope />
-              </Button>
-            </div>
-          </MobileNavMenu>
-        </MobileNav>
-      </NavbarWrapper>
-      <div className="flex items-center justify-center">
-        {!isScrolled && (
-          <hr className="h-1/2 w-[90vw] rounded-full border-gray-500 bg-gradient-to-r from-primary-600 to-primary-800 shadow-md" />
-        )}
+                {theme === 'dark' ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </button>
+            )}
+
+            {/* Mobile Nav Toggle */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="min-[880px]:hidden p-2 border border-border rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Toggle Menu"
+            >
+              {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Right Margin Stripe Cell */}
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
       </div>
-    </div>
+
+      {/* Mobile Menu Panel dropdown */}
+      {isOpen && (
+        <div className="min-[880px]:hidden border-t border-border bg-background/95 px-6 py-4 flex flex-col gap-4 font-mono">
+          {navItems.map((item) => (
+            <Link
+              key={`mobile-nav-${item.name}`}
+              href={item.link}
+              onClick={(e) => {
+                e.preventDefault()
+                handleNavClick(item.link)
+              }}
+              className="text-sm uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors py-2 border-b border-border last:border-b-0"
+            >
+              {item.name}
+            </Link>
+          ))}
+          {/* Mobile Search button */}
+          <button
+            onClick={() => {
+              setIsOpen(false)
+              const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true, ctrlKey: true })
+              window.dispatchEvent(event)
+            }}
+            className="flex items-center gap-3 px-3 py-2 border border-border rounded-md text-xs text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-all"
+          >
+            <Search className="h-4 w-4" />
+            <span>Open Command Menu (Ctrl+K)</span>
+          </button>
+        </div>
+      )}
+    </header>
   )
 }
