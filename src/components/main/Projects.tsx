@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FC, useState } from 'react'
 import { projectsData, Project } from '@/constants'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
-import { Plus, Minus, FolderOpen, Terminal, ShieldAlert, Cpu, Award } from 'lucide-react'
+import { Plus, Minus, Terminal, ShieldAlert, Cpu, Award } from 'lucide-react'
 
 const getIconKey = (tag: string): string => {
   const t = tag.toLowerCase().trim()
