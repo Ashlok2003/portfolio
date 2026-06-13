@@ -5,6 +5,7 @@ import Projects from '@/components/main/Projects'
 import ResumeSection from '@/components/main/Resume'
 import Skills from '@/components/main/Skills'
 import Timeline from '@/components/main/Timeline'
+import GithubActivity from '@/components/main/GithubActivity'
 import { Toaster } from 'react-hot-toast'
 
 const SectionDivider = () => (
@@ -23,6 +24,8 @@ export default function Home() {
       <Hero />
       <SectionDivider />
       <Skills />
+      <SectionDivider />
+      <GithubActivity />
       <SectionDivider />
       <ResumeSection />
       <SectionDivider />
