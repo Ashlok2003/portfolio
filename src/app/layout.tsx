@@ -18,17 +18,18 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Ashlok Chaudhary — Backend & Platform Engineer',
+  title: 'Ashlok Chaudhary - SDE',
   description:
-    'Personal portfolio of Ashlok Chaudhary, a Backend & Platform Engineer building scalable, reliable, production-grade distributed systems, microservices, and cloud infrastructure.',
+    'Personal portfolio of Ashlok Chaudhary, a Software Development Engineer building scalable, reliable, production-grade systems and applications.',
   keywords: [
     'Ashlok Chaudhary',
-    'Backend Engineer',
-    'Platform Engineer',
+    'Software Development Engineer',
+    'Software Engineer',
+    'Full Stack Developer',
+    'Backend Developer',
     'Systems Developer',
     'Go developer',
     'Rust developer',
-    'Kubernetes SRE',
     'Next.js portfolio',
     'Software Engineer India',
   ],
@@ -38,9 +39,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://ashlok.dev',
-    title: 'Ashlok Chaudhary — Backend & Platform Engineer',
+    title: 'Ashlok Chaudhary — Software Development Engineer',
     description:
-      'Backend & Platform Engineer building scalable systems — microservices, cloud infrastructure, and the tooling that keeps them running.',
+      'Software Development Engineer building scalable systems, robust applications, and the tooling that keeps them running.',
     siteName: 'Ashlok Chaudhary Portfolio',
     images: [
       {
@@ -53,9 +54,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ashlok Chaudhary — Backend & Platform Engineer',
+    title: 'Ashlok Chaudhary — Software Development Engineer',
     description:
-      'Backend & Platform Engineer building scalable systems — microservices, cloud infrastructure, and the tooling that keeps them running.',
+      'Software Development Engineer building scalable systems, robust applications, and the tooling that keeps them running.',
     creator: '@ashlok2003',
     images: ['/og-image.png'],
   },
