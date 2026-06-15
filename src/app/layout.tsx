@@ -18,6 +18,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ashlok.dev'),
   title: 'Ashlok Chaudhary - SDE',
   description:
     'Personal portfolio of Ashlok Chaudhary, a Software Development Engineer building scalable, reliable, production-grade systems and applications.',
