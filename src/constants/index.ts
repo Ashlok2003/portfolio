@@ -141,7 +141,7 @@ export const projectsData: Project[] = [
   {
     title: 'Deeptab',
     description: 'Context-aware, low-latency AI tab completion engine for VS Code streaming code suggestions.',
-    date: '01.2026',
+    date: '06.2026',
     problem: 'Commercial tools are closed-source and lock users into specific models, pricing, and context collection pipelines.',
     approach: 'Designed a provider-agnostic completion loop with SSE streaming, local state replay, and continuation prediction.',
     infra: 'TypeScript · VS Code Extension API · SSE Streaming · OpenRouter / Groq / Fireworks APIs',

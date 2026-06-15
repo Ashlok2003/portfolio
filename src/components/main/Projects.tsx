@@ -79,23 +79,19 @@ export const Projects: FC = () => {
             </span>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-0 border-b border-border">
             {premiumProjects.map((project: Project, idx: number) => {
               const isExpanded = expandedIndex === idx
 
               return (
                 <div
                   key={project.title}
-                  className={`border border-border/50 rounded-lg transition-all duration-300 overflow-hidden ${
-                    isExpanded 
-                      ? 'bg-card/10 border-border shadow-sm' 
-                      : 'hover:border-border hover:bg-card/5'
-                  }`}
+                  className="border-t border-border hover:bg-muted/10 transition-colors duration-200"
                 >
                   {/* Trigger Header */}
                   <button
                     onClick={() => toggleExpand(idx)}
-                    className="w-full text-left p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus:outline-none cursor-pointer"
+                    className="w-full text-left py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus:outline-none cursor-pointer"
                   >
                     <div className="flex items-start gap-4">
                       <div className={`size-10 border rounded-lg shrink-0 mt-0.5 overflow-hidden transition-all duration-300 flex items-center justify-center ${
@@ -152,7 +148,7 @@ export const Projects: FC = () => {
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
                         className="overflow-hidden"
                       >
-                        <div className="px-5 pb-6 pt-5 border-t border-border/30 space-y-6">
+                        <div className="pb-8 pl-0 sm:pl-14 pr-2 space-y-6">
                           
                           {/* Case Study Two-Column Layout */}
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
