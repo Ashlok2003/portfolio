@@ -210,7 +210,7 @@ export const CommandPalette: FC = () => {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, selectedIndex, filteredCommands])
+  }, [isOpen, selectedIndex, filteredCommands, playKeystroke])
 
   // Scroll active item into view
   useEffect(() => {

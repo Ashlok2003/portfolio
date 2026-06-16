@@ -51,7 +51,7 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     if (typeof window === 'undefined') return null
 
     if (!audioCtxRef.current) {
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext
+      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
       if (AudioContextClass) {
         audioCtxRef.current = new AudioContextClass()
       }
