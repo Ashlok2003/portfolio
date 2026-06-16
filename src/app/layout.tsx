@@ -37,6 +37,10 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Ashlok Chaudhary', url: 'https://github.com/Ashlok2003' }],
   creator: 'Ashlok Chaudhary',
+  alternates: {
+    canonical: 'https://ashlok.dev',
+  },
+  manifest: '/manifest.webmanifest',
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -75,6 +79,22 @@ export const metadata: Metadata = {
   },
 }
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Ashlok Chaudhary',
+  url: 'https://ashlok.dev',
+  jobTitle: 'Software Development Engineer',
+  sameAs: [
+    'https://github.com/Ashlok2003',
+    'https://www.linkedin.com/in/ashlok2003/',
+    'https://x.com/ashlok2003',
+  ],
+  image: 'https://ashlok.dev/ashlok.jpg',
+  description:
+    'Software Development Engineer building scalable, reliable, production-grade systems and applications.',
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -85,6 +105,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground custom-scrollbar overflow-x-hidden`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -1,0 +1,16 @@
+{
+  "name": "Ashlok Chaudhary — Software Development Engineer",
+  "short_name": "Ashlok.dev",
+  "description": "Personal portfolio of Ashlok Chaudhary, a Software Development Engineer building scalable, production-grade systems.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
