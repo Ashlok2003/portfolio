@@ -3,6 +3,7 @@ import { Navbar } from '@/components/main/Navbar'
 import { ThemeProvider } from '@/components/theme-provider'
 import ScrollProgress from '@/components/ui/scroll-progress'
 import { CommandPalette } from '@/components/ui/command-palette'
+import { SoundProvider } from '@/components/sound-provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -90,11 +91,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ScrollProgress />
-          <CommandPalette />
-          <Navbar />
-          {children}
-          <Footer />
+          <SoundProvider>
+            <ScrollProgress />
+            <CommandPalette />
+            <Navbar />
+            {children}
+            <Footer />
+          </SoundProvider>
         </ThemeProvider>
       </body>
     </html>

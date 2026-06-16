@@ -3,6 +3,7 @@
 import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
+import { useSound } from '@/components/sound-provider'
 
 interface FormData {
   name: string
@@ -20,6 +21,19 @@ export const ContactUs: FC = () => {
   })
   const [status, setStatus] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { playKeystroke } = useSound()
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (e.key === ' ') {
+      playKeystroke('spacebar')
+    } else if (e.key === 'Backspace') {
+      playKeystroke('backspace')
+    } else if (e.key === 'Enter') {
+      playKeystroke('enter')
+    } else if (e.key.length === 1) {
+      playKeystroke('standard')
+    }
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
@@ -156,6 +170,7 @@ export const ContactUs: FC = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    onKeyDown={handleKeyDown}
                     placeholder="John Doe"
                     required
                     className={inputClasses}
@@ -172,6 +187,7 @@ export const ContactUs: FC = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    onKeyDown={handleKeyDown}
                     placeholder="name@company.com"
                     required
                     className={inputClasses}
@@ -189,6 +205,7 @@ export const ContactUs: FC = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                   placeholder="Project collaboration, technical inquiry..."
                   required
                   className={inputClasses}
@@ -204,6 +221,7 @@ export const ContactUs: FC = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
+                  onKeyDown={handleKeyDown}
                   placeholder="Tell me about your project or idea..."
                   required
                   rows={6}
@@ -214,6 +232,7 @@ export const ContactUs: FC = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
+                onClick={() => playKeystroke('enter')}
                 className="w-full py-3 bg-foreground hover:bg-foreground/90 text-background rounded text-xs font-semibold uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-black/10"
               >
                 {isSubmitting ? (

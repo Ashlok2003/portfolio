@@ -4,6 +4,7 @@ import { FC, useEffect, useState, useRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { Search, User, Layers, Briefcase, FolderGit2, PenLine, Mail, Github, Linkedin, Twitter, FileDown, Sun, Moon, CornerDownLeft, SearchX } from 'lucide-react'
+import { useSound } from '@/components/sound-provider'
 
 type Category = 'navigation' | 'actions' | 'socials'
 
@@ -27,6 +28,7 @@ export const CommandPalette: FC = () => {
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const { theme, setTheme } = useTheme()
+  const { playKeystroke } = useSound()
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
@@ -191,13 +193,16 @@ export const CommandPalette: FC = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault()
+        playKeystroke('standard')
         setSelectedIndex((prev) => (prev + 1) % filteredCommands.length)
       } else if (e.key === 'ArrowUp') {
         e.preventDefault()
+        playKeystroke('standard')
         setSelectedIndex((prev) => (prev - 1 + filteredCommands.length) % filteredCommands.length)
       } else if (e.key === 'Enter') {
         e.preventDefault()
         if (filteredCommands[selectedIndex]) {
+          playKeystroke('enter')
           filteredCommands[selectedIndex].action()
         }
       }
@@ -250,6 +255,15 @@ export const CommandPalette: FC = () => {
                   setSearch(e.target.value)
                   setSelectedIndex(0)
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === ' ') {
+                    playKeystroke('spacebar')
+                  } else if (e.key === 'Backspace') {
+                    playKeystroke('backspace')
+                  } else if (e.key.length === 1) {
+                    playKeystroke('standard')
+                  }
+                }}
                 className="w-full bg-transparent text-sm text-foreground placeholder-muted-foreground/60 outline-none"
               />
               <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 border border-border rounded-md bg-muted/60 text-[10px] font-medium text-muted-foreground shrink-0">
@@ -275,7 +289,10 @@ export const CommandPalette: FC = () => {
                         </div>
                       )}
                       <div
-                        onClick={() => cmd.action()}
+                        onClick={() => {
+                          playKeystroke('enter')
+                          cmd.action()
+                        }}
                         onMouseEnter={() => setSelectedIndex(idx)}
                         className={`px-2.5 py-2.5 flex items-center justify-between rounded-lg cursor-pointer transition-colors duration-100 ${
                           isSelected

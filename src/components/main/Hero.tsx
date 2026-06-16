@@ -5,6 +5,7 @@ import { FC, useState } from 'react'
 import Image from 'next/image'
 import { FaFileDownload } from 'react-icons/fa'
 import { ArrowDown, BadgeCheck } from 'lucide-react'
+import { useSound } from '@/components/sound-provider'
 
 const tickerItems = [
   { name: 'go', icon: 'go' },
@@ -20,6 +21,13 @@ const tickerItems = [
 
 export const Hero: FC = () => {
   const [lightsOn, setLightsOn] = useState(true)
+  const { playSwitchClick } = useSound()
+
+  const handlePowerToggle = () => {
+    const nextState = !lightsOn
+    setLightsOn(nextState)
+    playSwitchClick(nextState)
+  }
 
   const handleConnectClick = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
@@ -43,6 +51,7 @@ export const Hero: FC = () => {
 
   return (
     <section id="about" className="relative w-full bg-background transition-colors overflow-hidden">
+      
       {/* Blueprint column grid — bounded, not edge-to-edge */}
       <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full min-h-[calc(100vh-64px)]">
         {/* Left Side Margin */}
@@ -60,19 +69,73 @@ export const Hero: FC = () => {
               xmlns="http://www.w3.org/2000/svg"
               className="w-full h-full object-cover"
             >
-              <line x1="50" y1="100" x2="750" y2="100" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-              <line x1="50" y1="500" x2="750" y2="500" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-              <line x1="100" y1="50" x2="100" y2="550" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-              <line x1="700" y1="50" x2="700" y2="550" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+              <motion.line
+                x1="50" y1="100" x2="750" y2="100"
+                stroke="currentColor" strokeWidth="1" strokeDasharray="4 4"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut", delay: 0.1 }}
+              />
+              <motion.line
+                x1="50" y1="500" x2="750" y2="500"
+                stroke="currentColor" strokeWidth="1" strokeDasharray="4 4"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut", delay: 0.2 }}
+              />
+              <motion.line
+                x1="100" y1="50" x2="100" y2="550"
+                stroke="currentColor" strokeWidth="1" strokeDasharray="4 4"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut", delay: 0.3 }}
+              />
+              <motion.line
+                x1="700" y1="50" x2="700" y2="550"
+                stroke="currentColor" strokeWidth="1" strokeDasharray="4 4"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut", delay: 0.4 }}
+              />
               
               {/* Isometric Cube representation */}
-              <path d="M400,200 L550,275 L400,350 L250,275 Z" stroke="currentColor" strokeWidth="1" />
-              <path d="M250,275 L250,400 L400,475 L400,350" stroke="currentColor" strokeWidth="1" />
-              <path d="M550,275 L550,400 L400,475" stroke="currentColor" strokeWidth="1" />
+              <motion.path
+                d="M400,200 L550,275 L400,350 L250,275 Z"
+                stroke="currentColor" strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.6, ease: "easeInOut", delay: 0.5 }}
+              />
+              <motion.path
+                d="M250,275 L250,400 L400,475 L400,350"
+                stroke="currentColor" strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.6, ease: "easeInOut", delay: 0.7 }}
+              />
+              <motion.path
+                d="M550,275 L550,400 L400,475"
+                stroke="currentColor" strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.6, ease: "easeInOut", delay: 0.9 }}
+              />
               
               {/* Projections & circles */}
-              <circle cx="400" cy="275" r="40" stroke="currentColor" strokeWidth="1" strokeDasharray="2 2" />
-              <circle cx="400" cy="275" r="80" stroke="currentColor" strokeWidth="1" />
+              <motion.circle
+                cx="400" cy="275" r="40"
+                stroke="currentColor" strokeWidth="1" strokeDasharray="2 2"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut", delay: 1.1 }}
+              />
+              <motion.circle
+                cx="400" cy="275" r="80"
+                stroke="currentColor" strokeWidth="1"
+                initial={{ pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ duration: 1.2, ease: "easeInOut", delay: 1.3 }}
+              />
               
               {/* Labels */}
               <text x="415" y="190" fill="currentColor" fontFamily="monospace" fontSize="10" letterSpacing="0.1em">FIG. 01</text>
@@ -127,7 +190,7 @@ export const Hero: FC = () => {
 
                 <div className="flex items-center gap-2.5">
                   <button
-                    onClick={() => setLightsOn(!lightsOn)}
+                    onClick={handlePowerToggle}
                     className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${lightsOn ? 'bg-brand-blue' : 'bg-muted border-border'}`}
                   >
                     <span

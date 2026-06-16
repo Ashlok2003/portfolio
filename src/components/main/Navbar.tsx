@@ -5,12 +5,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { FaGithub } from 'react-icons/fa'
-import { Sun, Moon, Menu, X, Search } from 'lucide-react'
+import { Sun, Moon, Menu, X, Search, Volume2, VolumeX } from 'lucide-react'
+import { useSound } from '@/components/sound-provider'
 
 export function Navbar() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const { isSoundEnabled, toggleSound, playKeystroke } = useSound()
 
   useEffect(() => {
     setMounted(true)
@@ -25,6 +27,7 @@ export function Navbar() {
   ]
 
   const handleNavClick = (link: string) => {
+    playKeystroke('standard')
     setIsOpen(false)
     const element = document.querySelector(link)
     if (element) {
@@ -80,6 +83,7 @@ export function Navbar() {
             {/* Command Search Shortcut Indicator */}
             <button
               onClick={() => {
+                playKeystroke('standard')
                 const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true, ctrlKey: true })
                 window.dispatchEvent(event)
               }}
@@ -95,6 +99,7 @@ export function Navbar() {
               href="https://github.com/Ashlok2003/portfolio"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => playKeystroke('standard')}
               className="p-2 border border-border rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
               aria-label="GitHub Repository"
             >
@@ -104,7 +109,10 @@ export function Navbar() {
             {/* Direct click theme switch button */}
             {mounted && (
               <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                onClick={() => {
+                  playKeystroke('standard')
+                  setTheme(theme === 'dark' ? 'light' : 'dark')
+                }}
                 className="p-2 border border-border rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
                 aria-label="Toggle Theme"
               >
@@ -116,9 +124,29 @@ export function Navbar() {
               </button>
             )}
 
+            {/* Direct click sound switch button */}
+            {mounted && (
+              <button
+                onClick={() => {
+                  toggleSound()
+                }}
+                className="p-2 border border-border rounded-md hover:bg-muted/50 transition-colors text-muted-foreground hover:text-foreground"
+                aria-label="Toggle Sound"
+              >
+                {isSoundEnabled ? (
+                  <Volume2 className="h-4 w-4" />
+                ) : (
+                  <VolumeX className="h-4 w-4" />
+                )}
+              </button>
+            )}
+
             {/* Mobile Nav Toggle */}
             <button
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={() => {
+                playKeystroke('standard')
+                setIsOpen(!isOpen)
+              }}
               className="min-[880px]:hidden p-2 border border-border rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors"
               aria-label="Toggle Menu"
             >
@@ -151,6 +179,7 @@ export function Navbar() {
           <button
             onClick={() => {
               setIsOpen(false)
+              playKeystroke('standard')
               const event = new KeyboardEvent('keydown', { key: 'k', metaKey: true, ctrlKey: true })
               window.dispatchEvent(event)
             }}
@@ -164,3 +193,5 @@ export function Navbar() {
     </header>
   )
 }
+
+export default Navbar
