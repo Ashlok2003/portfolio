@@ -14,7 +14,6 @@ export function Navbar() {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [langOpen, setLangOpen] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   const { isSoundEnabled, toggleSound, playKeystroke } = useSound()
@@ -44,7 +43,6 @@ export function Navbar() {
   const toggleLang = (lang: Language) => {
     playKeystroke('standard')
     setLanguage(lang)
-    setLangOpen(false)
   }
 
   return (

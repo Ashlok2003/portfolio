@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from 'next-themes'
 import { Search, User, Layers, Briefcase, FolderGit2, PenLine, Mail, Github, Linkedin, Twitter, FileDown, Sun, Moon, CornerDownLeft, SearchX, Globe } from 'lucide-react'
 import { useSound } from '@/components/sound-provider'
-import { useLanguage, Language } from '@/components/language-provider'
+import { useLanguage } from '@/components/language-provider'
 
 type Category = 'navigation' | 'actions' | 'socials'
 
@@ -29,7 +29,7 @@ export const CommandPalette: FC = () => {
   const [search, setSearch] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const { theme, setTheme } = useTheme()
-  const { language, setLanguage, t } = useLanguage()
+  const { setLanguage, t } = useLanguage()
   const { playKeystroke } = useSound()
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
@@ -207,7 +207,7 @@ export const CommandPalette: FC = () => {
         setIsOpen(false)
       },
     },
-  ], [theme, setTheme, language, setLanguage])
+  ], [theme, setTheme, setLanguage, t])
 
   // Filter commands by search
   const filteredCommands = useMemo(() => {

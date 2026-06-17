@@ -53,7 +53,7 @@ export const BlogsSection: FC = () => {
     }
     const key = keyMap[blog.id]
     if (key && key in t.extra.blogs) {
-      const extraBlog = t.extra.blogs[key] as any
+      const extraBlog = t.extra.blogs[key] as { title?: string; excerpt?: string; content?: string }
       return {
         ...blog,
         title: extraBlog.title ?? blog.title,
