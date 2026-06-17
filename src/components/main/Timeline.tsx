@@ -5,6 +5,7 @@ import { FC, useState } from 'react'
 import Image from 'next/image'
 import { experienceData, Experience } from '@/constants'
 import { Plus, Minus, Briefcase } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 const getCompanyLogo = (company: string): string => {
   const c = company.toLowerCase().trim()
@@ -62,9 +63,18 @@ const getIconKey = (tag: string): string => {
 
 export const Timeline: FC = () => {
   const [expandedId, setExpandedId] = useState<number | null>(0) // Expand first (current) by default
+  const { t } = useLanguage()
 
   const toggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id)
+  }
+
+  const getLocalizedExperience = (company: string) => {
+    const key = company.toLowerCase().replace(' hr services', '').replace(' ', '')
+    if (key in t.extra.experience) {
+      return t.extra.experience[key as keyof typeof t.extra.experience]
+    }
+    return null
   }
 
   return (
@@ -78,13 +88,19 @@ export const Timeline: FC = () => {
           {/* Section Header on Border Line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
             <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              EXPERIENCE
+              {t.experience.title}
             </span>
           </div>
 
           <div className="space-y-0 border-b border-border">
             {experienceData.map((exp: Experience) => {
               const isExpanded = expandedId === exp.id
+              const localized = getLocalizedExperience(exp.company)
+              const roleText = localized?.role ?? exp.role
+              const locationText = localized?.location ?? exp.location
+              const dateText = localized?.date ?? exp.date
+              const descriptionText = localized?.description ?? exp.description
+              const achievementsList = localized?.achievements ?? exp.achievements
 
               return (
                 <div
@@ -117,17 +133,17 @@ export const Timeline: FC = () => {
                       })()}
                       <div>
                         <h3 className="text-base font-semibold tracking-tight text-foreground">
-                          {exp.role}
+                          {roleText}
                         </h3>
                         <p className="text-xs font-mono text-muted-foreground mt-0.5">
-                          {exp.company} • {exp.location}
+                          {exp.company} • {locationText}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-2 sm:mt-0">
                       <span className="font-mono text-[11px] text-muted-foreground">
-                        {exp.date}
+                        {dateText}
                       </span>
                       <div className="text-muted-foreground border border-border p-1 rounded hover:text-foreground transition-colors">
                         {isExpanded ? (
@@ -151,12 +167,12 @@ export const Timeline: FC = () => {
                       >
                         <div className="pb-8 pl-0 sm:pl-14 pr-2 space-y-4">
                           <p className="text-sm text-muted-foreground leading-relaxed">
-                            {exp.description}
+                            {descriptionText}
                           </p>
 
                           {/* Achievements Bullets */}
                           <ul className="space-y-2.5">
-                            {exp.achievements.map((bullet, idx) => (
+                            {achievementsList.map((bullet, idx) => (
                               <li key={idx} className="text-xs text-foreground/85 flex items-start gap-2.5 leading-relaxed">
                                 <span className="text-brand-blue font-mono mt-0.5">&gt;</span>
                                 <span>{bullet}</span>

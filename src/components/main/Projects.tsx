@@ -5,6 +5,7 @@ import { FC, useState } from 'react'
 import { projectsData, Project } from '@/constants'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 import { Plus, Minus, Terminal, ShieldAlert, Cpu, Award } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 const getIconKey = (tag: string): string => {
   const t = tag.toLowerCase().trim()
@@ -54,9 +55,26 @@ const getIconKey = (tag: string): string => {
 
 export const Projects: FC = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0)
+  const { t } = useLanguage()
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index)
+  }
+
+  const getLocalizedDescription = (title: string, defaultDesc: string) => {
+    const key = title.toLowerCase().replace(' pro', '').replace(' ', '')
+    if (key in t.projects.taglines) {
+      return t.projects.taglines[key as keyof typeof t.projects.taglines]
+    }
+    return defaultDesc
+  }
+
+  const getLocalizedProjectDetails = (title: string) => {
+    const key = title.toLowerCase().replace(' pro', '').replace(' ', '')
+    if (key in t.extra.projects) {
+      return t.extra.projects[key as keyof typeof t.extra.projects]
+    }
+    return null
   }
 
   // Only display the 4 high-quality engineering projects (remove simple ones)
@@ -75,13 +93,17 @@ export const Projects: FC = () => {
           {/* Section Header on Border Line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
             <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              PROJECTS
+              {t.projects.title}
             </span>
           </div>
 
           <div className="space-y-0 border-b border-border">
             {premiumProjects.map((project: Project, idx: number) => {
               const isExpanded = expandedIndex === idx
+              const localizedDetails = getLocalizedProjectDetails(project.title)
+              const problemText = localizedDetails?.problem ?? project.problem
+              const approachText = localizedDetails?.approach ?? project.approach
+              const outcomeText = localizedDetails?.outcome ?? project.outcome
 
               return (
                 <div
@@ -119,7 +141,7 @@ export const Projects: FC = () => {
                           )}
                         </div>
                         <p className="text-xs text-muted-foreground/80 mt-1 max-w-[520px]">
-                          {project.description}
+                          {getLocalizedDescription(project.title, project.description)}
                         </p>
                       </div>
                     </div>
@@ -158,20 +180,20 @@ export const Projects: FC = () => {
                               <div className="space-y-1.5">
                                 <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 font-bold">
                                   <ShieldAlert className="w-3.5 h-3.5 text-muted-foreground/50" />
-                                  The Problem
+                                  {t.extra.projects.labels.problem}
                                 </span>
                                 <p className="text-xs text-muted-foreground/80 leading-relaxed pl-5 border-l border-border/50">
-                                  {project.problem}
+                                  {problemText}
                                 </p>
                               </div>
 
                               <div className="space-y-1.5">
                                 <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 font-bold">
                                   <Terminal className="w-3.5 h-3.5 text-muted-foreground/50" />
-                                  The Approach
+                                  {t.extra.projects.labels.approach}
                                 </span>
                                 <p className="text-xs text-muted-foreground/80 leading-relaxed pl-5 border-l border-border/50">
-                                  {project.approach}
+                                  {approachText}
                                 </p>
                               </div>
                             </div>
@@ -181,7 +203,7 @@ export const Projects: FC = () => {
                               <div className="space-y-1.5">
                                 <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 font-bold">
                                   <Cpu className="w-3.5 h-3.5 text-muted-foreground/50" />
-                                  Infrastructure & Stack
+                                  {t.extra.projects.labels.infra}
                                 </span>
                                 <p className="text-xs text-foreground/80 font-medium leading-relaxed pl-5 border-l border-border/50">
                                   {project.infra}
@@ -191,10 +213,10 @@ export const Projects: FC = () => {
                               <div className="space-y-1.5">
                                 <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-muted-foreground/60 font-bold">
                                   <Award className="w-3.5 h-3.5 text-brand-blue/70" />
-                                  Outcome
+                                  {t.extra.projects.labels.outcome}
                                 </span>
                                 <p className="text-xs text-brand-blue font-medium leading-relaxed pl-5 border-l border-brand-blue/30">
-                                  {project.outcome}
+                                  {outcomeText}
                                 </p>
                               </div>
                             </div>
@@ -234,7 +256,7 @@ export const Projects: FC = () => {
                                 className="flex items-center gap-1.5 px-3 py-2 border border-border/60 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-all"
                               >
                                 <FaGithub className="h-3.5 w-3.5" />
-                                <span>Code</span>
+                                <span>{t.extra.projects.labels.code}</span>
                               </a>
                               <a
                                 href={project.live}
@@ -243,7 +265,7 @@ export const Projects: FC = () => {
                                 className="flex items-center gap-1.5 px-3 py-2 border border-border/60 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-all"
                               >
                                 <FaExternalLinkAlt className="h-3 w-3" />
-                                <span>Live</span>
+                                <span>{t.extra.projects.labels.live}</span>
                               </a>
                             </div>
                           </div>

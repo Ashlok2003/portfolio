@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { FaFileDownload } from 'react-icons/fa'
 import { ArrowDown, BadgeCheck } from 'lucide-react'
 import { useSound } from '@/components/sound-provider'
+import { useLanguage } from '@/components/language-provider'
 
 const tickerItems = [
   { name: 'go', icon: 'go' },
@@ -22,6 +23,7 @@ const tickerItems = [
 export const Hero: FC = () => {
   const [lightsOn, setLightsOn] = useState(true)
   const { playSwitchClick } = useSound()
+  const { t } = useLanguage()
 
   const handlePowerToggle = () => {
     const nextState = !lightsOn
@@ -191,14 +193,14 @@ export const Hero: FC = () => {
                 <div className="flex items-center gap-2.5">
                   <button
                     onClick={handlePowerToggle}
-                    className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${lightsOn ? 'bg-brand-blue' : 'bg-muted border-border'}`}
+                    className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${lightsOn ? 'bg-black dark:bg-brand-blue' : 'bg-muted border-border'}`}
                   >
                     <span
                       className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-background shadow ring-0 transition duration-200 ease-in-out ${lightsOn ? 'translate-x-4' : 'translate-x-0'}`}
                     />
                   </button>
                   <span className="text-[10px] font-mono tracking-wider text-muted-foreground uppercase">
-                    Power: {lightsOn ? 'ON' : 'OFF'}
+                    {lightsOn ? t.hero.powerOn : t.hero.powerOff}
                   </span>
                 </div>
               </div>
@@ -207,20 +209,20 @@ export const Hero: FC = () => {
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">
-                    Ashlok Chaudhary
+                    {t.hero.name}
                   </h1>
                   <span title="Verified" className="shrink-0 inline-flex">
                     <BadgeCheck className="h-5 w-5 sm:h-6 sm:w-6 fill-brand-blue text-background" strokeWidth={2.5} />
                   </span>
                 </div>
                 <h2 className="text-lg sm:text-xl font-mono text-muted-foreground tracking-wide">
-                  Software Development Engineer
+                  {t.hero.title}
                 </h2>
               </div>
 
               {/* Description bio */}
               <p className="text-muted-foreground text-sm sm:text-base leading-relaxed w-full text-justify">
-                I design and build high-performance, secure backend architectures and cloud-native solutions using Node.js, Go, and Python. Experienced in distributed services, API design, Kubernetes, and automated infrastructure pipelines.
+                {t.hero.description}
               </p>
 
               {/* CTAs */}
@@ -229,7 +231,7 @@ export const Hero: FC = () => {
                   onClick={handleConnectClick}
                   className="px-6 py-2.5 rounded-full font-mono text-xs uppercase tracking-widest bg-foreground text-background hover:bg-foreground/90 shadow-md shadow-black/10 hover:shadow-lg hover:shadow-black/20 transition-all duration-300 flex items-center gap-2 font-semibold cursor-pointer"
                 >
-                  <span>Connect</span>
+                  <span>{t.hero.ctaTouch}</span>
                   <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
                 </button>
                 <a
@@ -238,7 +240,7 @@ export const Hero: FC = () => {
                   className="px-6 py-2.5 rounded-full font-mono text-xs uppercase tracking-widest border border-border hover:border-foreground/45 text-foreground hover:bg-muted/20 transition-all duration-300 flex items-center gap-2 font-semibold"
                 >
                   <FaFileDownload />
-                  <span>Resume</span>
+                  <span>{t.hero.ctaResume}</span>
                 </a>
               </div>
             </motion.div>

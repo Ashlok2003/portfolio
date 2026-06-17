@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { FC, useEffect, useState } from 'react'
 import { FaDownload } from 'react-icons/fa'
+import { useLanguage } from '@/components/language-provider'
 
 const Document = dynamic(() => import('react-pdf').then((mod) => mod.Document), { ssr: false })
 const Page = dynamic(() => import('react-pdf').then((mod) => mod.Page), { ssr: false })
@@ -13,6 +14,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 export const ResumeSection: FC = () => {
   const [error, setError] = useState<string | null>(null)
   const [windowWidth, setWindowWidth] = useState<number>(800)
+  const { t } = useLanguage()
 
   useEffect(() => {
     // PDF worker config
@@ -51,7 +53,7 @@ export const ResumeSection: FC = () => {
           {/* Section Header on Border Line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
             <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              CURRICULUM VITAE
+              {t.resume.title}
             </span>
           </div>
 
@@ -87,7 +89,7 @@ export const ResumeSection: FC = () => {
               className="w-full border-t border-border flex items-center justify-center gap-2.5 py-4 bg-muted/5 hover:bg-brand-blue/5 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-brand-blue transition-all duration-200"
             >
               <FaDownload className="h-3.5 w-3.5" />
-              <span>Download CV File</span>
+              <span>{t.resume.download}</span>
             </a>
           </div>
         </div>

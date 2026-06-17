@@ -3,10 +3,12 @@
 import React, { useState } from 'react'
 import { GitHubCalendar, Activity } from 'react-github-calendar'
 import { useTheme } from 'next-themes'
+import { useLanguage } from '@/components/language-provider'
 
 export const GithubActivity: React.FC = () => {
   const { theme } = useTheme()
   const [total, setTotal] = useState<number | null>(null)
+  const { t } = useLanguage()
 
   // Filter contributions to only show the last 9 months to keep it compact and prevent horizontal scrolling
   const selectLastHalfYear = (contributions: Activity[]) => {
@@ -37,7 +39,7 @@ export const GithubActivity: React.FC = () => {
           {/* Header */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
             <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              CONTRIBUTIONS
+              {t.contributions.title}
             </span>
           </div>
 
@@ -51,7 +53,7 @@ export const GithubActivity: React.FC = () => {
                 fontSize={12}
                 transformData={selectLastHalfYear}
                 labels={{
-                  totalCount: total !== null ? `${total} contributions in the last year` : 'Loading...'
+                  totalCount: total !== null ? `${total} ${t.contributions.totalCount}` : t.contributions.loading
                 }}
               />
             </div>

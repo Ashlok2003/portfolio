@@ -5,9 +5,11 @@ import Image from 'next/image'
 import { blogsData, Blog } from '@/constants'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { FileText, ShoppingBag, MessageSquare, Share2, ArrowUpRight, Calendar, Clock } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 export const BlogsSection: FC = () => {
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null)
+  const { t, language } = useLanguage()
 
   const getBlogIcon = (id: number) => {
     switch (id) {
@@ -20,17 +22,52 @@ export const BlogsSection: FC = () => {
 
   const getBlogTag = (id: number) => {
     switch (id) {
-      case 1: return 'GraphQL · Caching'
-      case 2: return 'WebSockets · WebRTC'
-      case 3: return 'Encryption · S3'
-      default: return 'Engineering'
+      case 1:
+        return {
+          en: 'GraphQL · Caching',
+          hi: 'GraphQL · कैशिंग',
+          ja: 'GraphQL · キャッシュ'
+        }[language]
+      case 2:
+        return 'WebSockets · WebRTC'
+      case 3:
+        return {
+          en: 'Encryption · S3',
+          hi: 'एन्क्रिप्शन · S3',
+          ja: '暗号化 · S3'
+        }[language]
+      default:
+        return {
+          en: 'Engineering',
+          hi: 'इंजीनियरिंग',
+          ja: 'エンジニアリング'
+        }[language]
     }
+  }
+
+  const getLocalizedBlog = (blog: Blog) => {
+    const keyMap: Record<number, keyof typeof t.extra.blogs> = {
+      1: 'scaling',
+      2: 'websockets',
+      3: 'zerotrust',
+    }
+    const key = keyMap[blog.id]
+    if (key && key in t.extra.blogs) {
+      const extraBlog = t.extra.blogs[key] as any
+      return {
+        ...blog,
+        title: extraBlog.title ?? blog.title,
+        excerpt: extraBlog.excerpt ?? blog.excerpt,
+        content: extraBlog.content ?? blog.content,
+      }
+    }
+    return blog
   }
 
   const readTime = (content: string) => Math.max(1, Math.round(content.split(/\s+/).length / 200))
 
-  const featured = blogsData[0]
-  const rest = blogsData.slice(1)
+  const featured = getLocalizedBlog(blogsData[0])
+  const rest = blogsData.slice(1).map(getLocalizedBlog)
 
   return (
     <section id="blogs" className="relative w-full bg-background transition-colors">
@@ -43,7 +80,7 @@ export const BlogsSection: FC = () => {
           {/* Section Header on Border Line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
             <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              WRITTEN LOGS
+              {t.extra.blogs.title}
             </span>
           </div>
 
@@ -59,7 +96,7 @@ export const BlogsSection: FC = () => {
                     {getBlogIcon(featured.id)}
                   </div>
                   <div className="flex items-center gap-2 font-mono text-[10px] text-muted-foreground/50 uppercase tracking-widest">
-                    <span className="text-brand-blue/70 font-bold">Latest</span>
+                    <span className="text-brand-blue/70 font-bold">{t.extra.blogs.latest}</span>
                     <span>·</span>
                     <span>{getBlogTag(featured.id)}</span>
                   </div>
@@ -77,13 +114,13 @@ export const BlogsSection: FC = () => {
                   </span>
                   <span className="flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground/40">
                     <Clock className="w-3 h-3" />
-                    {readTime(featured.content)} min read
+                    {readTime(featured.content)} {t.extra.blogs.minRead}
                   </span>
                 </div>
               </div>
               <div className="hidden sm:flex items-center justify-center px-8 border-l border-border/30">
                 <div className="flex items-center gap-1.5 text-xs font-mono text-muted-foreground/40 group-hover:text-brand-blue transition-colors">
-                  <span>Read</span>
+                  <span>{t.extra.blogs.read}</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </div>
@@ -120,7 +157,7 @@ export const BlogsSection: FC = () => {
                     {blog.date}
                   </span>
                   <span className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground/40 group-hover:text-brand-blue transition-colors">
-                    Read
+                    {t.extra.blogs.read}
                     <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </span>
                 </div>
@@ -161,17 +198,17 @@ export const BlogsSection: FC = () => {
                 <div className="flex items-center gap-3 mt-6">
                   <Image
                     src="/ashlok.jpg"
-                    alt="Ashlok Chaudhary"
+                    alt={t.hero.name}
                     width={40}
                     height={40}
                     className="w-10 h-10 rounded-full object-cover border border-border shrink-0"
                   />
                   <div className="flex flex-col">
                     <span className="text-[13px] font-semibold text-foreground leading-tight">
-                      Ashlok Chaudhary
+                      {t.hero.name}
                     </span>
                     <div className="flex items-center gap-2 text-[11px] text-muted-foreground/70">
-                      <span>Software Development Engineer</span>
+                      <span>{t.hero.title}</span>
                       <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
                       <span className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
@@ -180,7 +217,7 @@ export const BlogsSection: FC = () => {
                       <span className="w-1 h-1 rounded-full bg-muted-foreground/40" />
                       <span className="flex items-center gap-1">
                         <Clock className="w-3 h-3" />
-                        {readTime(selectedBlog.content)} min read
+                        {readTime(selectedBlog.content)} {t.extra.blogs.minRead}
                       </span>
                     </div>
                   </div>

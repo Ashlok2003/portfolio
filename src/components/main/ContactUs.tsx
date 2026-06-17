@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react'
 import { FC, FormEvent, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSound } from '@/components/sound-provider'
+import { useLanguage } from '@/components/language-provider'
 
 interface FormData {
   name: string
@@ -22,6 +23,7 @@ export const ContactUs: FC = () => {
   const [status, setStatus] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { playKeystroke } = useSound()
+  const { language, t } = useLanguage()
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.key === ' ') {
@@ -53,15 +55,15 @@ export const ContactUs: FC = () => {
 
       if (response.ok) {
         setStatus('MESSAGE_DELIVERED')
-        toast.success('Message sent successfully!')
+        toast.success(t.contact.success)
         setFormData({ name: '', email: '', subject: '', message: '' })
       } else {
         setStatus('ERROR_FAILED_TO_SEND')
-        toast.error('Failed to send message.')
+        toast.error(t.contact.error)
       }
     } catch {
       setStatus('ERROR_CONNECTION_REFUSED')
-      toast.error('An error occurred.')
+      toast.error(t.contact.error)
     } finally {
       setIsSubmitting(false)
       setTimeout(() => setStatus(''), 5000)
@@ -81,7 +83,7 @@ export const ContactUs: FC = () => {
           {/* Section Header on Border Line */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
             <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              DISPATCH MESSAGE
+              {t.contact.title}
             </span>
           </div>
 
@@ -91,11 +93,11 @@ export const ContactUs: FC = () => {
             <div className="flex flex-col justify-between h-full gap-8">
               {/* Header */}
               <div>
-                <h3 className="text-2xl font-semibold tracking-tight text-foreground mb-3">
-                  Let&apos;s Build<br />Something Together
+                <h3 className="text-2xl font-semibold tracking-tight text-foreground mb-3 whitespace-pre-line">
+                  {t.contact.heading}
                 </h3>
                 <p className="text-[13px] text-muted-foreground/70 leading-relaxed">
-                  Whether you have a project in mind, a technical challenge, or just want to connect — I&apos;d love to hear from you.
+                  {t.contact.subtitle}
                 </p>
               </div>
 
@@ -113,7 +115,13 @@ export const ContactUs: FC = () => {
                     <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
                       chaudharyashlok@gmail.com
                     </span>
-                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">Preferred for project inquiries</span>
+                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
+                      {{
+                        en: 'Preferred for project inquiries',
+                        hi: 'परियोजना पूछताछ के लिए पसंदीदा',
+                        ja: 'プロジェクトに関するお問い合わせはこちら'
+                      }[language]}
+                    </span>
                   </div>
                 </a>
 
@@ -129,7 +137,13 @@ export const ContactUs: FC = () => {
                     <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
                       +91 77670 12860
                     </span>
-                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">Available Mon–Sat, 10am–7pm IST</span>
+                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
+                      {{
+                        en: 'Available Mon–Sat, 10am–7pm IST',
+                        hi: 'उपलब्ध: सोम-शनि, सुबह 10 से शाम 7 बजे IST',
+                        ja: '対応時間: 月〜土、10:00〜19:00（日本時間）'
+                      }[language]}
+                    </span>
                   </div>
                 </a>
 
@@ -142,7 +156,13 @@ export const ContactUs: FC = () => {
                     <span className="block text-sm font-medium text-foreground/90">
                       Mumbai, India
                     </span>
-                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">Open to remote & hybrid roles</span>
+                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
+                      {{
+                        en: 'Open to remote & hybrid roles',
+                        hi: 'रिमोट और हाइब्रिड भूमिकाओं के लिए तैयार',
+                        ja: 'リモートおよびハイブリッド勤務可能'
+                      }[language]}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -153,7 +173,13 @@ export const ContactUs: FC = () => {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                 </span>
-                <span>Currently available for new opportunities</span>
+                <span>
+                  {{
+                    en: 'Currently available for new opportunities',
+                    hi: 'नए अवसरों के लिए वर्तमान में उपलब्ध',
+                    ja: '現在、新しい案件のご相談を受け付けております'
+                  }[language]}
+                </span>
               </div>
             </div>
 
@@ -162,7 +188,7 @@ export const ContactUs: FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div className="space-y-1.5">
                   <label htmlFor="name" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                    Name
+                    {t.contact.name}
                   </label>
                   <input
                     id="name"
@@ -179,7 +205,7 @@ export const ContactUs: FC = () => {
 
                 <div className="space-y-1.5">
                   <label htmlFor="email" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                    Email
+                    {t.contact.email}
                   </label>
                   <input
                     id="email"
@@ -197,7 +223,7 @@ export const ContactUs: FC = () => {
 
               <div className="space-y-1.5">
                 <label htmlFor="subject" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                  Subject
+                  {t.contact.subject}
                 </label>
                 <input
                   id="subject"
@@ -206,7 +232,11 @@ export const ContactUs: FC = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
-                  placeholder="Project collaboration, technical inquiry..."
+                  placeholder={{
+                    en: 'Project collaboration, technical inquiry...',
+                    hi: 'परियोजना सहयोग, तकनीकी पूछताछ...',
+                    ja: '共同開発のご提案、技術的なご質問など...'
+                  }[language]}
                   required
                   className={inputClasses}
                 />
@@ -214,7 +244,7 @@ export const ContactUs: FC = () => {
 
               <div className="space-y-1.5">
                 <label htmlFor="message" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                  Message
+                  {t.contact.message}
                 </label>
                 <textarea
                   id="message"
@@ -222,7 +252,11 @@ export const ContactUs: FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
-                  placeholder="Tell me about your project or idea..."
+                  placeholder={{
+                    en: 'Tell me about your project or idea...',
+                    hi: 'मुझे अपनी परियोजना या विचार के बारे में बताएं...',
+                    ja: 'プロジェクトのアイデアなどについてお聞かせください...'
+                  }[language]}
                   required
                   rows={6}
                   className={`${inputClasses} resize-none`}
@@ -238,12 +272,12 @@ export const ContactUs: FC = () => {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    <span>Sending...</span>
+                    <span>{t.contact.sending}</span>
                   </>
                 ) : (
                   <>
                     <Send className="h-3.5 w-3.5" />
-                    <span>Send Message</span>
+                    <span>{t.contact.send}</span>
                   </>
                 )}
               </button>
@@ -254,7 +288,7 @@ export const ContactUs: FC = () => {
                     ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
                     : 'bg-destructive/10 border border-destructive/20 text-destructive'
                 }`}>
-                  {status.includes('DELIVERED') ? '✓ Message sent successfully' : 'Failed to send — please try again'}
+                  {status.includes('DELIVERED') ? `✓ ${t.contact.success}` : t.contact.error}
                 </div>
               )}
             </form>
