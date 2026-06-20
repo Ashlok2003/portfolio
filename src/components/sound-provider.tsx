@@ -23,15 +23,44 @@ export function SoundProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  // Auto-resume AudioContext on first user interaction gesture
+  // Auto-resume and unlock AudioContext on first user interaction gesture (crucial for iOS/mobile)
   useEffect(() => {
+    const events = ['click', 'keydown', 'touchstart', 'touchend']
     const handleGesture = () => {
-      const ctx = audioCtxRef.current
+      if (typeof window === 'undefined') return
+
+      let ctx = audioCtxRef.current
+      if (!ctx) {
+        const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+        if (AudioContextClass) {
+          ctx = new AudioContextClass()
+          audioCtxRef.current = ctx
+        }
+      }
+
+      // Play a silent oscillator to truly unlock audio on iOS Safari
+      if (ctx) {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        gain.gain.value = 0
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.start(ctx.currentTime)
+        osc.stop(ctx.currentTime + 0.001)
+      }
+
+      const removeListeners = () => {
+        events.forEach((e) => window.removeEventListener(e, handleGesture))
+      }
+
+      // resume() is async — wait for it before tearing down listeners
       if (ctx && ctx.state === 'suspended') {
-        ctx.resume()
+        ctx.resume().then(removeListeners).catch(() => {})
+      } else if (ctx && ctx.state === 'running') {
+        removeListeners()
       }
     }
-    const events = ['click', 'keydown', 'mousedown', 'pointerdown', 'touchstart']
+
     events.forEach((e) => window.addEventListener(e, handleGesture, { passive: true }))
     return () => {
       events.forEach((e) => window.removeEventListener(e, handleGesture))
