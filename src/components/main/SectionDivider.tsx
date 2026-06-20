@@ -6,7 +6,7 @@ interface SectionDividerProps {
 
 export const SectionDivider: React.FC<SectionDividerProps> = ({ code }) => {
   return (
-    <div className="w-full border-y border-border bg-diagonal-stripes h-8 relative select-none overflow-hidden">
+    <div className="w-full border-y border-border bg-diagonal-stripes h-8 relative select-none overflow-x-clip">
       {/* Horizontal center guide line */}
       <div className="absolute inset-x-0 top-1/2 h-px bg-border/40 -translate-y-1/2" />
 

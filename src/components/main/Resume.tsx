@@ -15,7 +15,8 @@ import SectionWrapper from '@/components/ui/section-wrapper'
 
 export const ResumeSection: FC = () => {
   const [error, setError] = useState<string | null>(null)
-  const [windowWidth, setWindowWidth] = useState<number>(800)
+  const [containerWidth, setContainerWidth] = useState<number | null>(null)
+  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null)
   const { t } = useLanguage()
 
   useEffect(() => {
@@ -24,52 +25,56 @@ export const ResumeSection: FC = () => {
       pdfjs.GlobalWorkerOptions.workerSrc =
         `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
     })
-
-    // Responsive width helper
-    const handleResize = () => setWindowWidth(window.innerWidth)
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
   }, [])
+
+  useEffect(() => {
+    if (!containerRef) return
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setContainerWidth(Math.floor(entry.contentRect.width))
+      }
+    })
+
+    resizeObserver.observe(containerRef)
+    return () => resizeObserver.disconnect()
+  }, [containerRef])
 
   const onDocumentLoadError = (error: Error) => {
     setError(error.message)
   }
 
-  // Calculate PDF page width based on viewport
-  const getPdfWidth = () => {
-    if (windowWidth >= 880) {
-      return 800
-    }
-    return windowWidth - 48
-  }
-
   return (
     <SectionWrapper id="resume" title={t.resume.title} code="0x03">
       <div className="px-6 pb-10 pt-8 flex flex-col items-center">
-        {/* Interactive Document Panel - Edge to Edge */}
-        <div className="w-full min-[880px]:w-[800px] min-[880px]:-mx-6 border border-border min-[880px]:border-x-0 rounded min-[880px]:rounded-none overflow-hidden shadow-sm flex flex-col items-center">
+        {/* Interactive Document Panel */}
+        <div className="w-full max-w-[800px] border border-border rounded overflow-hidden shadow-sm flex flex-col items-center">
           {/* Document display */}
-          <div className="w-full flex justify-center overflow-x-auto bg-neutral-100 dark:bg-zinc-950/40 min-h-[300px]">
+          <div
+            ref={setContainerRef}
+            className="w-full flex justify-center bg-neutral-100 dark:bg-zinc-950/40 min-h-[300px] overflow-hidden"
+          >
             {error ? (
               <div className="text-destructive font-mono text-xs p-6 self-center border border-destructive/20 bg-destructive/5 rounded my-8">
                 [ERROR] Failed to render PDF document: {error}
               </div>
             ) : (
-              <Document
-                file="/resume.pdf"
-                onLoadError={onDocumentLoadError}
-                className="flex justify-center w-full"
-              >
-                <Page
-                  pageNumber={1}
-                  className="flex justify-center w-full shadow-md"
-                  renderTextLayer
-                  renderAnnotationLayer
-                  width={getPdfWidth()}
-                  scale={1}
-                />
-              </Document>
+              containerWidth && (
+                <Document
+                  file="/resume.pdf"
+                  onLoadError={onDocumentLoadError}
+                  className="flex justify-center w-full"
+                >
+                  <Page
+                    pageNumber={1}
+                    className="shadow-md"
+                    renderTextLayer
+                    renderAnnotationLayer
+                    width={Math.min(containerWidth, 800)}
+                    scale={1}
+                  />
+                </Document>
+              )
             )}
           </div>
           {/* Full-width Grid-Stylish Download Button */}

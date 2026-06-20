@@ -52,7 +52,7 @@ export const Hero: FC = () => {
   } as const
 
   return (
-    <section id="about" className="relative w-full bg-background transition-colors overflow-hidden">
+    <section id="about" className="relative w-full bg-background transition-colors overflow-x-clip overflow-y-visible">
       
       {/* Blueprint column grid — bounded, not edge-to-edge */}
       <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full min-h-[calc(100vh-64px)] relative">
@@ -230,10 +230,10 @@ export const Hero: FC = () => {
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-4 pt-2">
+              <div className="flex gap-3 sm:gap-4 pt-2">
                 <button
                   onClick={handleConnectClick}
-                  className="px-6 py-2.5 rounded-full font-mono text-xs uppercase tracking-widest bg-foreground text-background hover:bg-foreground/90 shadow-md shadow-black/10 hover:shadow-lg hover:shadow-black/20 transition-all duration-300 flex items-center gap-2 font-semibold cursor-pointer"
+                  className="px-4 sm:px-6 py-2.5 rounded-full font-mono text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest bg-foreground text-background hover:bg-foreground/90 shadow-md shadow-black/10 hover:shadow-lg hover:shadow-black/20 transition-all duration-300 flex items-center gap-2 font-semibold cursor-pointer"
                 >
                   <span>{t.hero.ctaTouch}</span>
                   <ArrowDown className="h-3.5 w-3.5 animate-bounce" />
@@ -241,7 +241,7 @@ export const Hero: FC = () => {
                 <a
                   href="/resume.pdf"
                   download="Ashlok_Chaudhary_Resume.pdf"
-                  className="px-6 py-2.5 rounded-full font-mono text-xs uppercase tracking-widest border border-border hover:border-foreground/45 text-foreground hover:bg-muted/20 transition-all duration-300 flex items-center gap-2 font-semibold"
+                  className="px-4 sm:px-6 py-2.5 rounded-full font-mono text-[11px] sm:text-xs uppercase tracking-wider sm:tracking-widest border border-border hover:border-foreground/45 text-foreground hover:bg-muted/20 transition-all duration-300 flex items-center gap-2 font-semibold"
                 >
                   <FaFileDownload />
                   <span>{t.hero.ctaResume}</span>
@@ -251,7 +251,7 @@ export const Hero: FC = () => {
           </motion.div>
 
           {/* Bottom Monospace Technology Ticker Row */}
-          <div className="relative z-10 pt-6 mt-8 sm:mt-0">
+          <div className="relative z-10 mt-8 sm:mt-0 -mx-6">
             {/* Stylesheet for marquee animation */}
             <style>{`
               @keyframes marquee {

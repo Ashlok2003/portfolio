@@ -11,7 +11,7 @@ import SectionDivider from '@/components/main/SectionDivider'
 
 export default function Home() {
   return (
-    <main className="w-full pt-14 bg-background">
+    <main className="w-full pt-14 bg-background overflow-x-clip">
       <Hero />
       <SectionDivider code="0x01" />
       <Skills />
