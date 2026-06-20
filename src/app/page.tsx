@@ -7,36 +7,27 @@ import Skills from '@/components/main/Skills'
 import Timeline from '@/components/main/Timeline'
 import GithubActivity from '@/components/main/GithubActivity'
 import { Toaster } from 'react-hot-toast'
-
-const SectionDivider = () => (
-  <div className="w-full border-b border-border bg-muted/5 h-4">
-    <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full h-full">
-      <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border h-full" />
-      <div className="border-x border-border min-[880px]:border-x-0 h-full" />
-      <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border h-full" />
-    </div>
-  </div>
-)
+import SectionDivider from '@/components/main/SectionDivider'
 
 export default function Home() {
   return (
     <main className="w-full pt-14 bg-background">
       <Hero />
-      <SectionDivider />
+      <SectionDivider code="0x01" />
       <Skills />
-      <SectionDivider />
+      <SectionDivider code="0x02" />
       <GithubActivity />
-      <SectionDivider />
+      <SectionDivider code="0x03" />
       <ResumeSection />
-      <SectionDivider />
+      <SectionDivider code="0x04" />
       <Timeline />
-      <SectionDivider />
+      <SectionDivider code="0x05" />
       <Projects />
-      <SectionDivider />
+      <SectionDivider code="0x06" />
       <BlogsSection />
-      <SectionDivider />
+      <SectionDivider code="0x07" />
       <ContactUs />
-      <SectionDivider />
+      <SectionDivider code="0x08" />
       <Toaster position="bottom-right" />
     </main>
   )

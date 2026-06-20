@@ -61,6 +61,8 @@ const getIconKey = (tag: string): string => {
   return ''
 }
 
+import SectionWrapper from '@/components/ui/section-wrapper'
+
 export const Timeline: FC = () => {
   const [expandedId, setExpandedId] = useState<number | null>(0) // Expand first (current) by default
   const { t } = useLanguage()
@@ -78,145 +80,129 @@ export const Timeline: FC = () => {
   }
 
   return (
-    <section id="experience" className="relative w-full bg-background transition-colors">
-      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
-        {/* Left margin diagonal stripes */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+    <SectionWrapper id="experience" title={t.experience.title} code="0x04">
+      <div className="px-6 pb-10 pt-8">
+        <div className="space-y-0 border-b border-border">
+          {experienceData.map((exp: Experience, idx: number) => {
+            const isExpanded = expandedId === exp.id
+            const localized = getLocalizedExperience(exp.company)
+            const roleText = localized?.role ?? exp.role
+            const locationText = localized?.location ?? exp.location
+            const dateText = localized?.date ?? exp.date
+            const descriptionText = localized?.description ?? exp.description
+            const achievementsList = localized?.achievements ?? exp.achievements
 
-        {/* Content Container */}
-        <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-10">
-          {/* Section Header on Border Line */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
-            <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              {t.experience.title}
-            </span>
-          </div>
-
-          <div className="space-y-0 border-b border-border">
-            {experienceData.map((exp: Experience) => {
-              const isExpanded = expandedId === exp.id
-              const localized = getLocalizedExperience(exp.company)
-              const roleText = localized?.role ?? exp.role
-              const locationText = localized?.location ?? exp.location
-              const dateText = localized?.date ?? exp.date
-              const descriptionText = localized?.description ?? exp.description
-              const achievementsList = localized?.achievements ?? exp.achievements
-
-              return (
-                <div
-                  key={exp.id}
-                  className="border-t border-border hover:bg-muted/10 transition-colors duration-200"
+            return (
+              <div
+                key={exp.id}
+                className={`hover:bg-muted/10 transition-colors duration-200 ${idx === 0 ? '' : 'border-t border-border'}`}
+              >
+                {/* Accordion Trigger Header */}
+                <button
+                  onClick={() => toggleExpand(exp.id)}
+                  className="w-full text-left py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus:outline-none cursor-pointer"
                 >
-                  {/* Accordion Trigger Header */}
-                  <button
-                    onClick={() => toggleExpand(exp.id)}
-                    className="w-full text-left py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 focus:outline-none cursor-pointer"
-                  >
-                    <div className="flex items-start gap-4">
-                      {(() => {
-                        const companyLogo = getCompanyLogo(exp.company)
-                        return (
-                          <div className="size-10 border border-border rounded-md bg-white flex items-center justify-center shrink-0 mt-0.5 overflow-hidden">
-                            {companyLogo ? (
-                              <Image
-                                src={companyLogo}
-                                alt={exp.company}
-                                width={40}
-                                height={40}
-                                className="size-full object-contain p-1"
-                              />
-                            ) : (
-                              <Briefcase className="h-4 w-4 text-muted-foreground" />
-                            )}
-                          </div>
-                        )
-                      })()}
-                      <div>
-                        <h3 className="text-base font-semibold tracking-tight text-foreground">
-                          {roleText}
-                        </h3>
-                        <p className="text-xs font-mono text-muted-foreground mt-0.5">
-                          {exp.company} • {locationText}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-2 sm:mt-0">
-                      <span className="font-mono text-[11px] text-muted-foreground">
-                        {dateText}
-                      </span>
-                      <div className="text-muted-foreground border border-border p-1 rounded hover:text-foreground transition-colors">
-                        {isExpanded ? (
-                          <Minus className="h-3 w-3" />
-                        ) : (
-                          <Plus className="h-3 w-3" />
-                        )}
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* Accordion Expandable Content */}
-                  <AnimatePresence initial={false}>
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: 'easeInOut' }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pb-8 pl-0 sm:pl-14 pr-2 space-y-4">
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {descriptionText}
-                          </p>
-
-                          {/* Achievements Bullets */}
-                          <ul className="space-y-2.5">
-                            {achievementsList.map((bullet, idx) => (
-                              <li key={idx} className="text-xs text-foreground/85 flex items-start gap-2.5 leading-relaxed">
-                                <span className="text-brand-blue font-mono mt-0.5">&gt;</span>
-                                <span>{bullet}</span>
-                              </li>
-                            ))}
-                          </ul>
-
-                          {/* Tech Tags */}
-                          <div className="flex flex-wrap gap-1.5 pt-2">
-                            {exp.tags.map((tag) => {
-                              const iconKey = getIconKey(tag)
-                              return (
-                                <span
-                                  key={tag}
-                                  className="flex items-center gap-1.5 font-mono text-[10px] border border-border rounded px-2 py-0.5 text-muted-foreground hover:border-brand-blue/30 hover:text-foreground transition-colors bg-muted/5"
-                                >
-                                  {iconKey && (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                      src={`https://skillicons.dev/icons?i=${iconKey}`}
-                                      alt={tag}
-                                      className="w-3.5 h-3.5 object-contain"
-                                      loading="lazy"
-                                    />
-                                  )}
-                                  <span>{tag}</span>
-                                </span>
-                              )
-                            })}
-                          </div>
+                  <div className="flex items-start gap-4">
+                    {(() => {
+                      const companyLogo = getCompanyLogo(exp.company)
+                      return (
+                        <div className="size-10 border border-border rounded-md bg-white flex items-center justify-center shrink-0 mt-0.5 overflow-hidden">
+                          {companyLogo ? (
+                            <Image
+                              src={companyLogo}
+                              alt={exp.company}
+                              width={40}
+                              height={40}
+                              className="size-full object-contain p-1"
+                            />
+                          ) : (
+                            <Briefcase className="h-4 w-4 text-muted-foreground" />
+                          )}
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )
-            })}
-          </div>
-        </div>
+                      )
+                    })()}
+                    <div>
+                      <h3 className="text-base font-semibold tracking-tight text-foreground">
+                        {roleText}
+                      </h3>
+                      <p className="text-xs font-mono text-muted-foreground mt-0.5">
+                        {exp.company} • {locationText}
+                      </p>
+                    </div>
+                  </div>
 
-        {/* Right margin diagonal stripes */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+                  <div className="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-2 sm:mt-0">
+                    <span className="font-mono text-[11px] text-muted-foreground">
+                      {dateText}
+                    </span>
+                    <div className="text-muted-foreground border border-border p-1 rounded hover:text-foreground transition-colors">
+                      {isExpanded ? (
+                        <Minus className="h-3 w-3" />
+                      ) : (
+                        <Plus className="h-3 w-3" />
+                      )}
+                    </div>
+                  </div>
+                </button>
+
+                {/* Accordion Expandable Content */}
+                <AnimatePresence initial={false}>
+                  {isExpanded && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pb-8 pl-0 sm:pl-14 pr-2 space-y-4">
+                        <p className="text-sm text-muted-foreground leading-relaxed">
+                          {descriptionText}
+                        </p>
+
+                        {/* Achievements Bullets */}
+                        <ul className="space-y-2.5">
+                          {achievementsList.map((bullet, idx) => (
+                            <li key={idx} className="text-xs text-foreground/85 flex items-start gap-2.5 leading-relaxed">
+                              <span className="text-brand-blue font-mono mt-0.5">&gt;</span>
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        {/* Tech Tags */}
+                        <div className="flex flex-wrap gap-1.5 pt-2">
+                          {exp.tags.map((tag) => {
+                            const iconKey = getIconKey(tag)
+                            return (
+                              <span
+                                key={tag}
+                                className="flex items-center gap-1.5 font-mono text-[10px] border border-border rounded px-2 py-0.5 text-muted-foreground hover:border-brand-blue/30 hover:text-foreground transition-colors bg-muted/5"
+                              >
+                                {iconKey && (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={`https://skillicons.dev/icons?i=${iconKey}`}
+                                    alt={tag}
+                                    className="w-3.5 h-3.5 object-contain"
+                                    loading="lazy"
+                                  />
+                                )}
+                                <span>{tag}</span>
+                              </span>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </section>
+    </SectionWrapper>
   )
 }
 

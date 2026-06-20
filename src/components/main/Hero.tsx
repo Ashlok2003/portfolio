@@ -55,9 +55,13 @@ export const Hero: FC = () => {
     <section id="about" className="relative w-full bg-background transition-colors overflow-hidden">
       
       {/* Blueprint column grid — bounded, not edge-to-edge */}
-      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full min-h-[calc(100vh-64px)]">
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full min-h-[calc(100vh-64px)] relative">
         {/* Left Side Margin */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border relative h-full select-none">
+          <div className="absolute inset-y-0 left-1/2 w-px bg-border/40 -translate-x-1/2" />
+          <div className="absolute top-12 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+0x00</div>
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">-0x00</div>
+        </div>
 
         {/* Content Container Area */}
         <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-16 md:py-24 flex flex-col justify-between min-h-full">
@@ -288,7 +292,11 @@ export const Hero: FC = () => {
         </div>
 
         {/* Right Side Margin */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border relative h-full select-none">
+          <div className="absolute inset-y-0 left-1/2 w-px bg-border/40 -translate-x-1/2" />
+          <div className="absolute top-12 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+0x00</div>
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">-0x00</div>
+        </div>
       </div>
     </section>
   )

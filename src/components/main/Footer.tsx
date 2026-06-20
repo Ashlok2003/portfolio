@@ -57,9 +57,12 @@ export const Footer: FC = () => {
 
   return (
     <footer className="relative w-full bg-background text-foreground transition-colors">
-      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full relative">
         {/* Left Margin */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border relative h-full select-none">
+          <div className="absolute inset-y-0 left-1/2 w-px bg-border/40 -translate-x-1/2" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+</div>
+        </div>
 
         {/* Content Cell */}
         <div className="border-x border-border min-[880px]:border-x-0">
@@ -98,11 +101,10 @@ export const Footer: FC = () => {
                       playKeystroke('standard')
                       setLanguage(lang)
                     }}
-                    className={`relative px-3 py-1 rounded-full font-mono text-[9px] font-bold uppercase tracking-wider transition-colors duration-300 select-none ${
-                      isActive
+                    className={`relative px-3 py-1 rounded-full font-mono text-[9px] font-bold uppercase tracking-wider transition-colors duration-300 select-none ${isActive
                         ? 'text-white dark:text-white'
                         : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                      }`}
                   >
                     {isActive && (
                       <motion.span
@@ -160,7 +162,10 @@ export const Footer: FC = () => {
         </div>
 
         {/* Right Margin */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border relative h-full select-none">
+          <div className="absolute inset-y-0 left-1/2 w-px bg-border/40 -translate-x-1/2" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+</div>
+        </div>
       </div>
     </footer>
   )

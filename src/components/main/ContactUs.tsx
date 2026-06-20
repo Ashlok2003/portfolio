@@ -13,6 +13,8 @@ interface FormData {
   message: string
 }
 
+import SectionWrapper from '@/components/ui/section-wrapper'
+
 export const ContactUs: FC = () => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -73,232 +75,216 @@ export const ContactUs: FC = () => {
   const inputClasses = "w-full px-3.5 py-2.5 bg-transparent border border-border/50 rounded text-sm text-foreground placeholder:text-muted-foreground/70 focus:outline-none focus:border-brand-blue/60 focus:ring-1 focus:ring-brand-blue/15 transition-all duration-200"
 
   return (
-    <section id="contact" className="relative w-full bg-background transition-colors">
-      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
-        {/* Left Margin */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+    <SectionWrapper id="contact" title={t.contact.title} code="0x07">
+      <div className="px-6 pb-12 pt-14">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 items-start">
 
-        {/* Content Cell */}
-        <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-12">
-          {/* Section Header on Border Line */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-background px-4 whitespace-nowrap">
-            <span className="font-mono text-[11px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              {t.contact.title}
-            </span>
-          </div>
+          {/* Left Side */}
+          <div className="flex flex-col justify-between h-full gap-8">
+            {/* Header */}
+            <div>
+              <h3 className="text-2xl font-semibold tracking-tight text-foreground mb-3 whitespace-pre-line">
+                {t.contact.heading}
+              </h3>
+              <p className="text-[13px] text-muted-foreground/70 leading-relaxed">
+                {t.contact.subtitle}
+              </p>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-10 items-start">
-
-            {/* Left Side */}
-            <div className="flex flex-col justify-between h-full gap-8">
-              {/* Header */}
-              <div>
-                <h3 className="text-2xl font-semibold tracking-tight text-foreground mb-3 whitespace-pre-line">
-                  {t.contact.heading}
-                </h3>
-                <p className="text-[13px] text-muted-foreground/70 leading-relaxed">
-                  {t.contact.subtitle}
-                </p>
-              </div>
-
-              {/* Contact Channels */}
-              <div className="space-y-4">
-                {/* Email */}
-                <a
-                  href="mailto:chaudharyashlok@gmail.com"
-                  className="group flex items-start gap-3 hover:translate-x-0.5 transition-transform duration-200"
-                >
-                  <div className="shrink-0 mt-0.5 text-foreground">
-                    <Mail className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
-                      chaudharyashlok@gmail.com
-                    </span>
-                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
-                      {{
-                        en: 'Preferred for project inquiries',
-                        hi: 'परियोजना पूछताछ के लिए पसंदीदा',
-                        ja: 'プロジェクトに関するお問い合わせはこちら'
-                      }[language]}
-                    </span>
-                  </div>
-                </a>
-
-                {/* Phone */}
-                <a
-                  href="tel:+917767012860"
-                  className="group flex items-start gap-3 hover:translate-x-0.5 transition-transform duration-200"
-                >
-                  <div className="shrink-0 mt-0.5 text-foreground">
-                    <Phone className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
-                      +91 77670 12860
-                    </span>
-                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
-                      {{
-                        en: 'Available Mon–Sat, 10am–7pm IST',
-                        hi: 'उपलब्ध: सोम-शनि, सुबह 10 से शाम 7 बजे IST',
-                        ja: '対応時間: 月〜土、10:00〜19:00（日本時間）'
-                      }[language]}
-                    </span>
-                  </div>
-                </a>
-
-                {/* Location */}
-                <div className="flex items-start gap-3">
-                  <div className="shrink-0 mt-0.5 text-foreground">
-                    <MapPin className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <span className="block text-sm font-medium text-foreground/90">
-                      Mumbai, India
-                    </span>
-                    <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
-                      {{
-                        en: 'Open to remote & hybrid roles',
-                        hi: 'रिमोट और हाइब्रिड भूमिकाओं के लिए तैयार',
-                        ja: 'リモートおよびハイブリッド勤務可能'
-                      }[language]}
-                    </span>
-                  </div>
+            {/* Contact Channels */}
+            <div className="space-y-4">
+              {/* Email */}
+              <a
+                href="mailto:chaudharyashlok@gmail.com"
+                className="group flex items-start gap-3 hover:translate-x-0.5 transition-transform duration-200"
+              >
+                <div className="shrink-0 mt-0.5 text-foreground">
+                  <Mail className="h-4 w-4" />
                 </div>
-              </div>
+                <div>
+                  <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
+                    chaudharyashlok@gmail.com
+                  </span>
+                  <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
+                    {{
+                      en: 'Preferred for project inquiries',
+                      hi: 'परियोजना पूछताछ के लिए पसंदीदा',
+                      ja: 'プロジェクトに関するお問い合わせはこちら'
+                    }[language]}
+                  </span>
+                </div>
+              </a>
 
-              {/* Availability */}
-              <div className="flex items-center gap-2.5 text-[11px] text-muted-foreground/80">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                </span>
-                <span>
-                  {{
-                    en: 'Currently available for new opportunities',
-                    hi: 'नए अवसरों के लिए वर्तमान में उपलब्ध',
-                    ja: '現在、新しい案件のご相談を受け付けております'
-                  }[language]}
-                </span>
+              {/* Phone */}
+              <a
+                href="tel:+917767012860"
+                className="group flex items-start gap-3 hover:translate-x-0.5 transition-transform duration-200"
+              >
+                <div className="shrink-0 mt-0.5 text-foreground">
+                  <Phone className="h-4 w-4" />
+                </div>
+                <div>
+                  <span className="block text-sm font-medium text-foreground/90 group-hover:text-brand-blue transition-colors">
+                    +91 77670 12860
+                  </span>
+                  <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
+                    {{
+                      en: 'Available Mon–Sat, 10am–7pm IST',
+                      hi: 'उपलब्ध: सोम-शनि, सुबह 10 से शाम 7 बजे IST',
+                      ja: '対応時間: 月〜土、10:00〜19:00（日本時間）'
+                    }[language]}
+                  </span>
+                </div>
+              </a>
+
+              {/* Location */}
+              <div className="flex items-start gap-3">
+                <div className="shrink-0 mt-0.5 text-foreground">
+                  <MapPin className="h-4 w-4" />
+                </div>
+                <div>
+                  <span className="block text-sm font-medium text-foreground/90">
+                    Mumbai, India
+                  </span>
+                  <span className="block text-[11px] text-muted-foreground/70 mt-0.5">
+                    {{
+                      en: 'Open to remote & hybrid roles',
+                      hi: 'रिमोट और हाइब्रिड भूमिकाओं के लिए तैयार',
+                      ja: 'リモートおよびハイブリッド勤務可能'
+                    }[language]}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Right Side: Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                <div className="space-y-1.5">
-                  <label htmlFor="name" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                    {t.contact.name}
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    placeholder="John Doe"
-                    required
-                    className={inputClasses}
-                  />
-                </div>
+            {/* Availability */}
+            <div className="flex items-center gap-2.5 text-[11px] text-muted-foreground/80">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              </span>
+              <span>
+                {{
+                  en: 'Currently available for new opportunities',
+                  hi: 'नए अवसरों के लिए वर्तमान में उपलब्ध',
+                  ja: '現在、新しい案件のご相談を受け付けております'
+                }[language]}
+              </span>
+            </div>
+          </div>
 
-                <div className="space-y-1.5">
-                  <label htmlFor="email" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                    {t.contact.email}
-                  </label>
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    onKeyDown={handleKeyDown}
-                    placeholder="name@company.com"
-                    required
-                    className={inputClasses}
-                  />
-                </div>
-              </div>
-
+          {/* Right Side: Form */}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div className="space-y-1.5">
-                <label htmlFor="subject" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                  {t.contact.subject}
+                <label htmlFor="name" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                  {t.contact.name}
                 </label>
                 <input
-                  id="subject"
+                  id="name"
                   type="text"
-                  name="subject"
-                  value={formData.subject}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
-                  placeholder={{
-                    en: 'Project collaboration, technical inquiry...',
-                    hi: 'परियोजना सहयोग, तकनीकी पूछताछ...',
-                    ja: '共同開発のご提案、技術的なご質問など...'
-                  }[language]}
+                  placeholder="John Doe"
                   required
                   className={inputClasses}
                 />
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="message" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
-                  {t.contact.message}
+                <label htmlFor="email" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                  {t.contact.email}
                 </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   onKeyDown={handleKeyDown}
-                  placeholder={{
-                    en: 'Tell me about your project or idea...',
-                    hi: 'मुझे अपनी परियोजना या विचार के बारे में बताएं...',
-                    ja: 'プロジェクトのアイデアなどについてお聞かせください...'
-                  }[language]}
+                  placeholder="name@company.com"
                   required
-                  rows={6}
-                  className={`${inputClasses} resize-none`}
+                  className={inputClasses}
                 />
               </div>
+            </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                onClick={() => playKeystroke('enter')}
-                className="w-full py-3 bg-foreground hover:bg-foreground/90 text-background rounded text-xs font-semibold uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-black/10"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    <span>{t.contact.sending}</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="h-3.5 w-3.5" />
-                    <span>{t.contact.send}</span>
-                  </>
-                )}
-              </button>
+            <div className="space-y-1.5">
+              <label htmlFor="subject" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                {t.contact.subject}
+              </label>
+              <input
+                id="subject"
+                type="text"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder={{
+                  en: 'Project collaboration, technical inquiry...',
+                  hi: 'परियोजना सहयोग, तकनीकी पूछताछ...',
+                  ja: '共同開発のご提案、技術的なご質問など...'
+                }[language]}
+                required
+                className={inputClasses}
+              />
+            </div>
 
-              {status && (
-                <div className={`p-3 rounded text-center text-xs font-medium ${
-                  status.includes('DELIVERED')
-                    ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
-                    : 'bg-destructive/10 border border-destructive/20 text-destructive'
-                }`}>
-                  {status.includes('DELIVERED') ? `✓ ${t.contact.success}` : t.contact.error}
-                </div>
+            <div className="space-y-1.5">
+              <label htmlFor="message" className="text-muted-foreground text-[9px] font-mono uppercase tracking-widest block">
+                {t.contact.message}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder={{
+                  en: 'Tell me about your project or idea...',
+                  hi: 'मुझे अपनी परियोजना या विचार के बारे में बताएं...',
+                  ja: 'プロジェクトのアイデアなどについてお聞かせください...'
+                }[language]}
+                required
+                rows={6}
+                className={`${inputClasses} resize-none`}
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              onClick={() => playKeystroke('enter')}
+              className="w-full py-3 bg-foreground hover:bg-foreground/90 text-background rounded text-xs font-semibold uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-black/10"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  <span>{t.contact.sending}</span>
+                </>
+              ) : (
+                <>
+                  <Send className="h-3.5 w-3.5" />
+                  <span>{t.contact.send}</span>
+                </>
               )}
-            </form>
-          </div>
-        </div>
+            </button>
 
-        {/* Right Margin */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border" />
+            {status && (
+              <div className={`p-3 rounded text-center text-xs font-medium ${
+                status.includes('DELIVERED')
+                  ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+                  : 'bg-destructive/10 border border-destructive/20 text-destructive'
+              }`}>
+                {status.includes('DELIVERED') ? `✓ ${t.contact.success}` : t.contact.error}
+              </div>
+            )}
+          </form>
+        </div>
       </div>
-    </section>
+    </SectionWrapper>
   )
 }
 

@@ -48,9 +48,12 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 w-full bg-background/70 backdrop-blur-xl border-b border-border/60 z-40 transition-colors">
       {/* 3-Column Grid bounded within max-width container */}
-      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full">
+      <div className="max-w-[880px] mx-auto grid grid-cols-1 min-[880px]:grid-cols-[40px_800px_40px] w-full relative">
         {/* Left Margin Stripe Cell */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border/80" />
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border/80 relative h-full select-none">
+          <div className="absolute inset-y-0 left-1/2 w-px bg-border/40 -translate-x-1/2" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+</div>
+        </div>
 
         {/* Content Cell */}
         <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-3.5 flex items-center justify-between">
@@ -74,9 +77,9 @@ export function Navbar() {
                 />
               </div>
             </Link>
-            
+
             {/* Desktop Navigation Links with sliding backdrop pill */}
-            <nav 
+            <nav
               className="hidden min-[880px]:flex items-center gap-1.5"
               onMouseLeave={() => setHoveredIndex(null)}
             >
@@ -89,9 +92,8 @@ export function Navbar() {
                     e.preventDefault()
                     handleNavClick(item.link)
                   }}
-                  className={`relative px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.15em] transition-colors duration-200 ${
-                    hoveredIndex === idx ? 'text-foreground' : 'text-muted-foreground/80 hover:text-foreground'
-                  }`}
+                  className={`relative px-3 py-1.5 font-mono text-[11px] font-medium uppercase tracking-[0.15em] transition-colors duration-200 ${hoveredIndex === idx ? 'text-foreground' : 'text-muted-foreground/80 hover:text-foreground'
+                    }`}
                 >
                   <span className="relative z-10">{item.name}</span>
                   {hoveredIndex === idx && (
@@ -184,7 +186,10 @@ export function Navbar() {
         </div>
 
         {/* Right Margin Stripe Cell */}
-        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border/80" />
+        <div className="hidden min-[880px]:block bg-diagonal-stripes border-x border-border/80 relative h-full select-none">
+          <div className="absolute inset-y-0 left-1/2 w-px bg-border/40 -translate-x-1/2" />
+          <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+</div>
+        </div>
       </div>
 
       {/* Mobile Menu Panel dropdown */}
@@ -237,11 +242,10 @@ export function Navbar() {
                     <button
                       key={`mobile-lang-${lang}`}
                       onClick={() => toggleLang(lang)}
-                      className={`py-1.5 rounded-full font-mono text-[10px] font-bold transition-all ${
-                        language === lang
+                      className={`py-1.5 rounded-full font-mono text-[10px] font-bold transition-all ${language === lang
                           ? 'bg-black dark:bg-brand-blue text-white shadow-sm'
                           : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
-                      }`}
+                        }`}
                     >
                       {lang === 'en' ? 'English' : lang === 'hi' ? 'हिन्दी' : '日本語'}
                     </button>
