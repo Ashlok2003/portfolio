@@ -171,20 +171,20 @@ export const Timeline: FC = () => {
                         </ul>
 
                         {/* Tech Tags */}
-                        <div className="flex flex-wrap gap-1.5 pt-2">
+                        <div className="flex flex-wrap gap-2 pt-2">
                           {exp.tags.map((tag) => {
                             const iconKey = getIconKey(tag)
                             return (
                               <span
                                 key={tag}
-                                className="flex items-center gap-1.5 font-mono text-[10px] border border-border rounded px-2 py-0.5 text-muted-foreground hover:border-brand-blue/30 hover:text-foreground transition-colors bg-muted/5"
+                                className="group/tag flex items-center gap-1.5 font-mono text-[10px] border border-border/40 rounded-full px-2.5 py-1 text-muted-foreground bg-background/60 backdrop-blur-sm shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-brand-blue/40 hover:text-foreground hover:bg-brand-blue/[0.04] hover:shadow-[0_0_12px_rgba(59,130,246,0.08)] transition-all duration-300 cursor-default"
                               >
                                 {iconKey && (
                                   // eslint-disable-next-line @next/next/no-img-element
                                   <img
                                     src={`https://skillicons.dev/icons?i=${iconKey}`}
                                     alt={tag}
-                                    className="w-3.5 h-3.5 object-contain"
+                                    className="w-3.5 h-3.5 object-contain group-hover/tag:scale-110 transition-transform duration-300"
                                     loading="lazy"
                                   />
                                 )}

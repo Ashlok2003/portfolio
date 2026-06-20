@@ -1,37 +1,20 @@
 'use client'
 
-import { FC, useEffect, useState } from 'react'
+import { FC } from 'react'
 import { motion } from 'framer-motion'
 import { FaLinkedin, FaTwitter, FaGithub } from 'react-icons/fa'
 import { Heart, ChevronUp, Globe } from 'lucide-react'
+import Script from 'next/script'
 
 import { useLanguage, Language } from '@/components/language-provider'
 import { useSound } from '@/components/sound-provider'
 
+// DMCA badge ID from dmca.com dashboard
+const DMCA_ID = '6dfe1037-1892-42c0-8901-2a29faa4ee9e'
+
 export const Footer: FC = () => {
-  const [visitorCount, setVisitorCount] = useState<number>(0)
   const { language, setLanguage, t } = useLanguage()
   const { playKeystroke } = useSound()
-
-  useEffect(() => {
-    const savedCount = localStorage.getItem('visitorCount')
-    const lastVisit = localStorage.getItem('lastVisit')
-    const today = new Date().toDateString()
-
-    let count = savedCount ? parseInt(savedCount, 10) : 1000
-
-    if (!savedCount) {
-      // Seed baseline at 1K on first visit
-      localStorage.setItem('visitorCount', count.toString())
-      localStorage.setItem('lastVisit', today)
-    } else if (!lastVisit || lastVisit !== today) {
-      count += 1
-      localStorage.setItem('visitorCount', count.toString())
-      localStorage.setItem('lastVisit', today)
-    }
-
-    setVisitorCount(count)
-  }, [])
 
   const socialLinks = [
     {
@@ -138,26 +121,38 @@ export const Footer: FC = () => {
           </div>
 
           {/* Bottom Row */}
-          <div className="px-6 py-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-[11px] text-muted-foreground/50 font-mono tracking-wide">
-            <span>© {new Date().getFullYear()} {t.hero.name}</span>
-            <span className="text-border">·</span>
-            <span className="flex items-center gap-1">
-              {{
-                en: 'Built with',
-                hi: 'निर्मित:',
-                ja: '開発ツール:'
-              }[language]}
-              <Heart className="w-2.5 h-2.5 text-rose-500/60 fill-rose-500/60" /> Next.js
-            </span>
-            <span className="text-border">·</span>
-            <span className="tabular-nums">
-              {visitorCount.toLocaleString()}{' '}
-              {{
-                en: 'visits',
-                hi: 'विज़िट',
-                ja: '閲覧'
-              }[language]}
-            </span>
+          <div className="px-6 py-4 flex flex-col-reverse sm:flex-row items-center justify-between gap-3 text-[11px] text-muted-foreground/50 font-mono tracking-wide">
+            {/* Left: copyright + credit */}
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+              <span>© {new Date().getFullYear()} {t.hero.name}</span>
+              <span className="text-border">·</span>
+              <span className="flex items-center gap-1">
+                {{
+                  en: 'Built with',
+                  hi: 'निर्मित:',
+                  ja: '開発ツール:'
+                }[language]}
+                <Heart className="w-2.5 h-2.5 text-rose-500/60 fill-rose-500/60" /> Next.js
+              </span>
+            </div>
+
+            {/* Right: DMCA badge */}
+            <a
+              href={`//www.dmca.com/Protection/Status.aspx?ID=${DMCA_ID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="DMCA.com Protection Status"
+              className="dmca-badge inline-flex items-center opacity-80 hover:opacity-100 transition-opacity duration-200 shrink-0"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://images.dmca.com/Badges/dmca-badge-w200-5x1-08.png?ID=${DMCA_ID}`}
+                alt="DMCA.com Protection Status"
+                width={150}
+                height={30}
+                className="h-[26px] w-auto"
+              />
+            </a>
           </div>
         </div>
 
@@ -167,6 +162,7 @@ export const Footer: FC = () => {
           <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 font-mono text-[9px] text-muted-foreground/35 font-bold z-10">+</div>
         </div>
       </div>
+      <Script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js" strategy="lazyOnload" />
     </footer>
   )
 }

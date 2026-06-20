@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { FC, useState } from 'react'
 import { projectsData, Project } from '@/constants'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaGithub, FaGlobe } from 'react-icons/fa'
 import { Plus, Minus, Terminal, ShieldAlert, Cpu, Award } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
 
@@ -214,20 +214,20 @@ export const Projects: FC = () => {
 
                         {/* Tech Tags and Links Row */}
                         <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 pt-4 border-t border-border/20">
-                          <div className="flex flex-wrap gap-1.5">
+                          <div className="flex flex-wrap gap-2">
                             {project.tags.map((tag) => {
                               const iconKey = getIconKey(tag)
                               return (
                                 <span
                                   key={tag}
-                                  className="flex items-center gap-1.5 font-mono text-[9px] border border-border/50 rounded-md px-2 py-1 text-muted-foreground bg-muted/5 hover:border-brand-blue/30 hover:text-foreground transition-colors"
+                                  className="group/tag flex items-center gap-1.5 font-mono text-[9px] border border-border/40 rounded-full px-2.5 py-1 text-muted-foreground bg-background/60 backdrop-blur-sm shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:border-brand-blue/40 hover:text-foreground hover:bg-brand-blue/[0.04] hover:shadow-[0_0_12px_rgba(59,130,246,0.08)] transition-all duration-300 cursor-default"
                                 >
                                   {iconKey && (
                                     // eslint-disable-next-line @next/next/no-img-element
                                     <img
                                       src={`https://skillicons.dev/icons?i=${iconKey}`}
                                       alt={tag}
-                                      className="w-3 h-3 object-contain"
+                                      className="w-3 h-3 object-contain group-hover/tag:scale-110 transition-transform duration-300"
                                       loading="lazy"
                                     />
                                   )}
@@ -237,23 +237,23 @@ export const Projects: FC = () => {
                             })}
                           </div>
 
-                          <div className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-widest shrink-0">
+                          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-wider sm:tracking-widest shrink-0">
                             <a
                               href={project.github}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-1.5 px-3 py-2 border border-border/60 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-all"
+                              className="group/btn flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-foreground/45 text-foreground hover:bg-muted/20 transition-all duration-300 active:scale-[0.97] font-semibold"
                             >
-                              <FaGithub className="h-3.5 w-3.5" />
+                              <FaGithub className="h-3.5 w-3.5 group-hover/btn:rotate-[8deg] transition-transform duration-300" />
                               <span>{t.extra.projects.labels.code}</span>
                             </a>
                             <a
                               href={project.live}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-1.5 px-3 py-2 border border-border/60 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-all"
+                              className="group/btn flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background hover:bg-foreground/90 shadow-md shadow-black/10 hover:shadow-lg hover:shadow-black/20 transition-all duration-300 active:scale-[0.97] font-semibold"
                             >
-                              <FaExternalLinkAlt className="h-3 w-3" />
+                              <FaGlobe className="h-3.5 w-3.5 group-hover/btn:rotate-[20deg] transition-transform duration-300" />
                               <span>{t.extra.projects.labels.live}</span>
                             </a>
                           </div>
