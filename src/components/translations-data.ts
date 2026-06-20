@@ -49,14 +49,14 @@ export const extraTranslations = {
         live: 'Live'
       },
       deeptab: {
-        problem: 'Commercial tools are closed-source and lock users into specific models, pricing, and context collection pipelines.',
-        approach: 'Designed a provider-agnostic completion loop with SSE streaming, local state replay, and continuation prediction.',
-        outcome: 'Built a lightweight, extensible extension supporting pluggable models, keys, and local config reactive states.'
+        problem: 'Existing tools like Copilot and Cursor Tab are closed-source, locking users into specific models, pricing, and opaque context pipelines with no way to self-host or control cost.',
+        approach: 'Built a provider-agnostic completion pipeline with SSE streaming, pending-completion replay, continuation prediction, and reactive configuration — targeting sub-200ms perceived latency.',
+        outcome: 'Shipped a working inline completion provider with pluggable model support, local state replay, continuation matching, and a phased roadmap for context gathering, FIM prompting, and caching.'
       },
       snappypro: {
-        problem: 'Standard browser capture tools lack developer utilities like annotation overlays, filters, and light/color curve adjustments.',
-        approach: 'Leveraged Chrome Extension messaging architecture and HTML5 Canvas API for real-time rendering and recording.',
-        outcome: 'Delivered an intuitive extension with full-page screenshot capture, annotations, real-time filters, and image exports.'
+        problem: 'Standard browser capture tools lack developer-grade features like annotation overlays, per-pixel image adjustments, channel curves editing, and optimized GIF encoding.',
+        approach: 'Built a Manifest V3 Chrome Extension with multi-mode capture (viewport, full-page scroll-stitch, element selector, custom region), offscreen rendering for recording, and a pure-JS image processing engine.',
+        outcome: 'Shipped a lightweight extension with 5 capture modes, a full annotation canvas, 12 one-click filters, interactive RGB channel curves, and high-quality WebM/GIF export via offscreen rendering.'
       },
       shopxindia: {
         problem: 'Monolithic commerce systems couple deployment boundaries and complicate backend scaling.',
@@ -141,14 +141,14 @@ export const extraTranslations = {
         live: 'लाइव'
       },
       deeptab: {
-        problem: 'व्यावसायिक उपकरण बंद-स्रोत हैं और उपयोगकर्ताओं को विशिष्ट मॉडलों, मूल्य निर्धारण और संदर्भ संग्रह पाइपलाइनों में बांधते हैं।',
-        approach: 'SSE स्ट्रीमिंग, स्थानीय स्थिति रीप्ले और निरंतरता भविष्यवाणी के साथ एक प्रदाता-अज्ञेयवादी समापन लूप डिज़ाइन किया गया।',
-        outcome: 'प्लग करने योग्य मॉडल, कुंजी और स्थानीय कॉन्फ़िगरेशन प्रतिक्रियाशील राज्यों का समर्थन करने वाला एक हल्का, एक्स्टेंसिबल एक्सटेंशन बनाया।'
+        problem: 'Copilot और Cursor Tab जैसे मौजूदा उपकरण बंद-स्रोत हैं, जो उपयोगकर्ताओं को विशिष्ट मॉडलों, मूल्य निर्धारण और अपारदर्शी संदर्भ पाइपलाइनों में बांधते हैं।',
+        approach: 'SSE स्ट्रीमिंग, पेंडिंग-कम्पलीशन रीप्ले, कंटीन्यूएशन प्रेडिक्शन और रिएक्टिव कॉन्फ़िगरेशन के साथ एक प्रदाता-अज्ञेयवादी कम्पलीशन पाइपलाइन बनाई।',
+        outcome: 'प्लग करने योग्य मॉडल समर्थन, लोकल स्टेट रीप्ले, कंटीन्यूएशन मैचिंग और FIM प्रॉम्प्टिंग के लिए रोडमैप के साथ एक इनलाइन कम्पलीशन प्रोवाइडर शिप किया।'
       },
       snappypro: {
-        problem: 'मानक ब्राउज़र कैप्चर टूल में एनोटेशन ओवरले, फ़िल्टर और लाइट/कलर कर्व एडजस्टमेंट जैसी डेवलपर उपयोगिताओं का अभाव होता है।',
-        approach: 'वास्तविक समय में रेंडरिंग और रिकॉर्डिंग के लिए Chrome एक्सटेंशन मैसेजिंग आर्किटेक्चर और HTML5 कैनवास एपीआई का लाभ उठाया।',
-        outcome: 'पूर्ण-पृष्ठ स्क्रीनशॉट कैप्चर, एनोटेशन, वास्तविक समय फ़िल्टर और छवि निर्यात के साथ एक सहज एक्सटेंशन प्रदान किया।'
+        problem: 'मानक ब्राउज़र कैप्चर टूल में एनोटेशन ओवरले, प्रति-पिक्सेल इमेज एडजस्टमेंट, चैनल कर्व एडिटिंग और ऑप्टिमाइज़्ड GIF एन्कोडिंग जैसी डेवलपर सुविधाओं का अभाव है।',
+        approach: 'मल्टी-मोड कैप्चर, ऑफस्क्रीन रेंडरिंग और प्योर-JS इमेज प्रोसेसिंग इंजन के साथ एक Manifest V3 Chrome एक्सटेंशन बनाया।',
+        outcome: '5 कैप्चर मोड, फुल एनोटेशन कैनवास, 12 वन-क्लिक फ़िल्टर, इंटरैक्टिव RGB चैनल कर्व और ऑफस्क्रीन रेंडरिंग के साथ WebM/GIF एक्सपोर्ट शिप किया।'
       },
       shopxindia: {
         problem: 'मोनोलिथिक कॉमर्स सिस्टम परिनियोजन सीमाओं को जोड़ते हैं और बैकएंड स्केलिंग को जटिल बनाते हैं।',
@@ -233,14 +233,14 @@ export const extraTranslations = {
         live: 'ライブ'
       },
       deeptab: {
-        problem: '商用ツールはクローズドソースであり、ユーザーを特定のモデル、価格設定、およびコンテキスト収集パイプラインに固定します。',
-        approach: 'SSEストリーミング、ローカル状態リプレイ、および継続予測を備えた、プロバイダーに依存しない補完ループを設計。',
-        outcome: 'プラグ可能モデル、キー、およびローカル構成のリアクティブ状態をサポートする、軽量で拡張可能な拡張機能を構築。'
+        problem: 'CopilotやCursor Tabなどの既存ツールはクローズドソースで、ユーザーを特定のモデル、価格設定、不透明なコンテキストパイプラインに固定します。',
+        approach: 'SSEストリーミング、保留中の補完リプレイ、継続予測、リアクティブ設定を備えた、プロバイダー非依存の補完パイプラインを構築。',
+        outcome: 'プラグ可能なモデルサポート、ローカル状態リプレイ、継続マッチング、FIMプロンプティングのロードマップを備えたインライン補完プロバイダーを出荷。'
       },
       snappypro: {
-        problem: '標準のブラウザキャプチャツールには、アノテーションオーバーレイ, フィルター、ライト/カラーカーブ調整などの開発者向けユーティリティがありません。',
-        approach: 'リアルタイムのレンダリングと記録のために、Chrome拡張機能メッセージングアーキテクチャとHTML5 Canvas APIを活用。',
-        outcome: 'フルページスクリーンショットキャプチャ、アノテーション、リアルタイムフィルター、および画像エクスポートを備えた直感的な拡張機能を提供。'
+        problem: '標準のブラウザキャプチャツールには、アノテーションオーバーレイ、ピクセル単位の画像調整、チャンネルカーブ編集、最適化されたGIFエンコーディングなどの開発者向け機能がありません。',
+        approach: 'マルチモードキャプチャ、オフスクリーンレンダリング、純粋なJSの画像処理エンジンを備えたManifest V3 Chrome拡張機能を構築。',
+        outcome: '5つのキャプチャモード、フルアノテーションキャンバス、12のワンクリックフィルター、インタラクティブRGBチャンネルカーブ、オフスクリーンレンダリングによるWebM/GIFエクスポートを出荷。'
       },
       shopxindia: {
         problem: 'モノリシックなコマースシステムはデプロイ境界を結合し、バックエンドのスケーリングを複雑にします。',

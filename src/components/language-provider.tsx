@@ -102,8 +102,8 @@ const translations: Record<Language, TranslationDict> = {
     projects: {
       title: 'Featured Projects',
       taglines: {
-        snappy: 'A fast, secure URL shortener and link manager with real-time analytics.',
-        deeptab: 'A productivity browser extension to organize tabs and manage workspace clutter.',
+        snappy: 'A developer-grade Chrome extension for screen capture, recording, and interactive image manipulation.',
+        deeptab: 'Context-aware, low-latency AI tab completion engine for VS Code with pluggable model support.',
         shopxindia: 'An e-commerce platform offering end-to-end seller tools and order tracking.',
         socialpedia: 'A lightweight social network platform for community building and media sharing.',
       },
@@ -170,8 +170,8 @@ const translations: Record<Language, TranslationDict> = {
     projects: {
       title: 'प्रमुख परियोजनाएं',
       taglines: {
-        snappy: 'वास्तविक समय विश्लेषण के साथ एक तेज़, सुरक्षित यूआरएल शॉर्टनर।',
-        deeptab: 'टैब व्यवस्थित करने और उत्पादकता बढ़ाने के लिए एक ब्राउज़र एक्सटेंशन।',
+        snappy: 'स्क्रीन कैप्चर, रिकॉर्डिंग और इंटरैक्टिव इमेज मैनिपुलेशन के लिए एक डेवलपर-ग्रेड Chrome एक्सटेंशन।',
+        deeptab: 'प्लग करने योग्य मॉडल समर्थन के साथ VS Code के लिए संदर्भ-जागरूक, कम-विलंबता AI टैब कम्पलीशन इंजन।',
         shopxindia: 'सैलर टूल्स और ऑर्डर ट्रैकिंग प्रदान करने वाला ई-कॉमर्स प्लेटफॉर्म।',
         socialpedia: 'समुदाय निर्माण और मीडिया साझाकरण के लिए एक लाइटवेट सोशल नेटवर्क।',
       },
@@ -238,8 +238,8 @@ const translations: Record<Language, TranslationDict> = {
     projects: {
       title: '主なプロジェクト',
       taglines: {
-        snappy: 'リアルタイム分析機能を備えた高速で安全なURL短縮サービス。',
-        deeptab: 'タブを整理し、生産性を高めるためのブラウザ拡張機能。',
+        snappy: 'スクリーンキャプチャ、録画、インタラクティブな画像操作のための開発者向けChrome拡張機能。',
+        deeptab: 'プラグ可能なモデルをサポートする、VS Code向けのコンテキスト認識型・低遅延AIタブ補完エンジン。',
         shopxindia: 'エンドツーエンドの販売者ツールと注文追跡を提供するEコマースプラットフォーム。',
         socialpedia: 'コミュニティ構築とメディア共有のための軽量ソーシャルネットワーク。',
       },
