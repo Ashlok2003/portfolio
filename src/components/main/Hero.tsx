@@ -66,7 +66,7 @@ export const Hero: FC = () => {
         {/* Content Container Area */}
         <div className="relative border-x border-border min-[880px]:border-x-0 px-6 py-16 md:py-24 flex flex-col justify-between min-h-full">
           {/* Isometric Blueprint Vector Background Schematic */}
-          <div className="absolute inset-0 pointer-events-none select-none opacity-[0.04] dark:opacity-[0.07] z-0 flex items-center justify-center">
+          <div className="absolute inset-0 pointer-events-none select-none opacity-[0.06] dark:opacity-[0.10] z-0 flex items-center justify-center">
             <svg
               width="100%"
               height="100%"
