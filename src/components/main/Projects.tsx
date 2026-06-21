@@ -3,8 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { FC, useState } from 'react'
 import { projectsData, Project } from '@/constants'
-import { FaGithub, FaGlobe } from 'react-icons/fa'
-import { Plus, Minus, Terminal, ShieldAlert, Cpu, Award } from 'lucide-react'
+import { FaGithub } from 'react-icons/fa'
+import { Plus, Minus, Terminal, ShieldAlert, Cpu, Award, ArrowUpRight } from 'lucide-react'
 import { useLanguage } from '@/components/language-provider'
 
 const getIconKey = (tag: string): string => {
@@ -213,7 +213,7 @@ export const Projects: FC = () => {
                         </div>
 
                         {/* Tech Tags and Links Row */}
-                        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 pt-4 border-t border-border/20">
+                        <div className="flex flex-col sm:flex-row sm:flex-nowrap sm:items-center sm:justify-between gap-4 pt-4 border-t border-border/20">
                           <div className="flex flex-wrap gap-2">
                             {project.tags.map((tag) => {
                               const iconKey = getIconKey(tag)
@@ -237,24 +237,25 @@ export const Projects: FC = () => {
                             })}
                           </div>
 
-                          <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-wider sm:tracking-widest shrink-0">
+                          {/* Blueprint-style structural link cells — sharp, hairline-bordered, flat */}
+                          <div className="flex w-full sm:w-auto shrink-0 border border-border divide-x divide-border font-mono text-[10px] uppercase tracking-widest font-bold">
                             <a
                               href={project.github}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/btn flex items-center gap-2 px-4 py-2 rounded-full border border-border hover:border-foreground/45 text-foreground hover:bg-muted/20 transition-all duration-300 active:scale-[0.97] font-semibold"
+                              className="group/btn flex flex-1 sm:flex-initial items-center justify-center gap-2 px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-muted/30 transition-colors duration-200"
                             >
-                              <FaGithub className="h-3.5 w-3.5 group-hover/btn:rotate-[8deg] transition-transform duration-300" />
+                              <FaGithub className="h-3 w-3" />
                               <span>{t.extra.projects.labels.code}</span>
                             </a>
                             <a
                               href={project.live}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/btn flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background hover:bg-foreground/90 shadow-md shadow-black/10 hover:shadow-lg hover:shadow-black/20 transition-all duration-300 active:scale-[0.97] font-semibold"
+                              className="group/btn flex flex-1 sm:flex-initial items-center justify-center gap-2 px-4 py-2 text-brand-blue hover:bg-brand-blue/[0.07] transition-colors duration-200"
                             >
-                              <FaGlobe className="h-3.5 w-3.5 group-hover/btn:rotate-[20deg] transition-transform duration-300" />
                               <span>{t.extra.projects.labels.live}</span>
+                              <ArrowUpRight className="h-3 w-3 transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                             </a>
                           </div>
                         </div>

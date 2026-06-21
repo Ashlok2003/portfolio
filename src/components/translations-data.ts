@@ -45,8 +45,8 @@ export const extraTranslations = {
         approach: 'The Approach',
         infra: 'Infrastructure & Stack',
         outcome: 'Outcome',
-        code: 'Code',
-        live: 'Live'
+        code: 'Source',
+        live: 'Visit'
       },
       deeptab: {
         problem: 'Existing tools like Copilot and Cursor Tab are closed-source, locking users into specific models, pricing, and opaque context pipelines with no way to self-host or control cost.',
@@ -137,8 +137,8 @@ export const extraTranslations = {
         approach: 'दृष्टिकोण',
         infra: 'बुनियादी ढांचा और तकनीक',
         outcome: 'परिणाम',
-        code: 'कोड',
-        live: 'लाइव'
+        code: 'स्रोत',
+        live: 'देखें'
       },
       deeptab: {
         problem: 'Copilot और Cursor Tab जैसे मौजूदा उपकरण बंद-स्रोत हैं, जो उपयोगकर्ताओं को विशिष्ट मॉडलों, मूल्य निर्धारण और अपारदर्शी संदर्भ पाइपलाइनों में बांधते हैं।',
@@ -229,8 +229,8 @@ export const extraTranslations = {
         approach: 'アプローチ',
         infra: 'インフラ & 技術スタック',
         outcome: '成果',
-        code: 'コード',
-        live: 'ライブ'
+        code: 'ソース',
+        live: '見る'
       },
       deeptab: {
         problem: 'CopilotやCursor Tabなどの既存ツールはクローズドソースで、ユーザーを特定のモデル、価格設定、不透明なコンテキストパイプラインに固定します。',

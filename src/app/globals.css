@@ -174,3 +174,28 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* GitHub contribution calendar — terminal-styled floating tooltip */
+.react-activity-calendar__tooltip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background-color: var(--card);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+.react-activity-calendar__tooltip-arrow {
+  fill: var(--card);
+}
+
+/* Hide horizontal scrollbar (calendar scroll on mobile) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
