@@ -14,6 +14,13 @@ const HeroContent: FC = () => {
     const start = window.scrollY
     const end = element.getBoundingClientRect().top + start
     const distance = end - start
+
+    // Honor reduced-motion: jump instantly instead of the long eased scroll.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      window.scrollTo(0, end)
+      return
+    }
+
     const startTime = performance.now()
 
     function scroll(currentTime: number) {

@@ -5,6 +5,7 @@ import ScrollProgress from '@/components/ui/scroll-progress'
 import { CommandPalette } from '@/components/ui/command-palette'
 import { SoundProvider } from '@/components/sound-provider'
 import { LanguageProvider } from '@/components/language-provider'
+import { MotionProvider } from '@/components/motion-provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
@@ -118,11 +119,13 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <SoundProvider>
-              <ScrollProgress />
-              <CommandPalette />
-              <Navbar />
-              {children}
-              <Footer />
+              <MotionProvider>
+                <ScrollProgress />
+                <CommandPalette />
+                <Navbar />
+                {children}
+                <Footer />
+              </MotionProvider>
             </SoundProvider>
           </ThemeProvider>
         </LanguageProvider>
