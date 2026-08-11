@@ -71,17 +71,35 @@ export interface Experience {
   description: string
   achievements: string[]
   tags: string[]
+  translationKey?: string
 }
 
 export const experienceData: Experience[] = [
   {
     id: 0,
+    role: 'Software Development Engineer',
+    company: 'OpenLeaf',
+    location: 'Onsite - Mumbai, Maharashtra',
+    date: 'Aug 2026 - Current',
+    description:
+      'Owning backend and platform infrastructure end-to-end for a B2B/B2C logistics management platform, driving system design, reliability, and scale across enterprise retail integrations.',
+    achievements: [
+      'Leading design and rollout of a Go-based order orchestration service handling high-volume daily events across Blinkit, Swiggy Instamart, Zepto, and new marketplace integrations.',
+      'Owning deployment and infra provisioning on AWS for core backend services, improving release reliability.',
+      'Extending PostgreSQL-backed inventory and reporting systems to support higher order volume and new retail channels.',
+      'Mentoring backend interns on service architecture, code review standards, and PostgreSQL query optimization.',
+      'Driving incident response and postmortems for production reliability, reducing P1 mean-time-to-resolution.',
+    ],
+    tags: ['Go', 'Node.js', 'PostgreSQL', 'Redis', 'AWS', 'Microservices'],
+  },
+  {
+    id: 1,
     role: 'Backend Developer Intern',
     company: 'OpenLeaf',
     location: 'Onsite - Mumbai, Maharashtra',
-    date: 'Mar 2026 - Present',
+    date: 'Mar 2026 - Jul 2026',
     description:
-      'Building high-performance backend services for a B2B/B2C logistics management platform that delivers end-to-end purchase order automation and supply chain orchestration across enterprise retail channels.',
+      'Built high-performance backend services for a B2B/B2C logistics management platform that delivers end-to-end purchase order automation and supply chain orchestration across enterprise retail channels.',
     achievements: [
       'Developed distributed PO automation pipelines in Go handling multi-channel order ingestion from platforms like Blinkit, Swiggy Instamart, and Zepto.',
       'Engineered PostgreSQL-backed inventory sync services with Redis caching to handle real-time warehouse stock updates at low latency.',
@@ -90,9 +108,10 @@ export const experienceData: Experience[] = [
       'Optimized SQL query plans on large order tables (10M+ rows), reducing reporting query time by over 60% via composite indexing and materialized views.',
     ],
     tags: ['Go', 'Node.js', 'PostgreSQL', 'Redis', 'REST APIs', 'Microservices', 'B2B Logistics'],
+    translationKey: 'openleafIntern',
   },
   {
-    id: 1,
+    id: 2,
     role: 'Backend Developer Intern',
     company: 'WhatBytes',
     location: 'Remote',
@@ -107,7 +126,7 @@ export const experienceData: Experience[] = [
     tags: ['Django', 'Python', 'LLMs', 'OpenSearch', 'OpenAI Whisper', 'CI/CD', 'Web Scraping'],
   },
   {
-    id: 2,
+    id: 3,
     role: 'Full Stack Developer Intern',
     company: 'Talent Corner HR Services',
     location: 'Onsite - Mumbai, Maharashtra',

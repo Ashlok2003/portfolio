@@ -2,10 +2,23 @@ export const extraTranslations = {
   en: {
     experience: {
       openleaf: {
+        role: 'Software Development Engineer',
+        location: 'Onsite - Mumbai, Maharashtra',
+        date: 'Aug 2026 - Current',
+        description: 'Owning backend and platform infrastructure end-to-end for a B2B/B2C logistics management platform, driving system design, reliability, and scale across enterprise retail integrations.',
+        achievements: [
+          'Leading design and rollout of a Go-based order orchestration service handling high-volume daily events across Blinkit, Swiggy Instamart, Zepto, and new marketplace integrations.',
+          'Owning deployment and infra provisioning on AWS for core backend services, improving release reliability.',
+          'Extending PostgreSQL-backed inventory and reporting systems to support higher order volume and new retail channels.',
+          'Mentoring backend interns on service architecture, code review standards, and PostgreSQL query optimization.',
+          'Driving incident response and postmortems for production reliability, reducing P1 mean-time-to-resolution.'
+        ]
+      },
+      openleafIntern: {
         role: 'Backend Developer Intern',
         location: 'Onsite - Mumbai, Maharashtra',
-        date: 'Mar 2026 - Present',
-        description: 'Building high-performance backend services for a B2B/B2C logistics management platform that delivers end-to-end purchase order automation and supply chain orchestration across enterprise retail channels.',
+        date: 'Mar 2026 - Jul 2026',
+        description: 'Built high-performance backend services for a B2B/B2C logistics management platform that delivers end-to-end purchase order automation and supply chain orchestration across enterprise retail channels.',
         achievements: [
           'Developed distributed PO automation pipelines in Go handling multi-channel order ingestion from platforms like Blinkit, Swiggy Instamart, and Zepto.',
           'Engineered PostgreSQL-backed inventory sync services with Redis caching to handle real-time warehouse stock updates at low latency.',
@@ -94,9 +107,22 @@ export const extraTranslations = {
   hi: {
     experience: {
       openleaf: {
+        role: 'सॉफ्टवेयर डेवलपमेंट इंजीनियर',
+        location: 'ऑनसाइट - मुंबई, महाराष्ट्र',
+        date: 'अगस्त 2026 - वर्तमान',
+        description: 'B2B/B2C लॉजिस्टिक्स प्रबंधन प्लेटफॉर्म के लिए बैकएंड और प्लेटफॉर्म इंफ्रास्ट्रक्चर का एंड-टू-एंड स्वामित्व, उद्यम खुदरा एकीकरण में सिस्टम डिज़ाइन, विश्वसनीयता और स्केल को आगे बढ़ाना।',
+        achievements: [
+          'Blinkit, Swiggy Instamart, Zepto और नए मार्केटप्लेस एकीकरणों में उच्च-मात्रा दैनिक इवेंट्स को संभालने वाली Go-आधारित ऑर्डर ऑर्केस्ट्रेशन सेवा के डिज़ाइन और रोलआउट का नेतृत्व।',
+          'रिलीज़ विश्वसनीयता बेहतर करने के लिए कोर बैकएंड सेवाओं हेतु AWS पर डिप्लॉयमेंट और इंफ्रास्ट्रक्चर प्रोविज़निंग का स्वामित्व।',
+          'अधिक ऑर्डर वॉल्यूम और नए खुदरा चैनलों का समर्थन करने के लिए PostgreSQL-समर्थित इन्वेंट्री और रिपोर्टिंग सिस्टम का विस्तार।',
+          'सेवा वास्तुकला, कोड रिव्यू मानकों और PostgreSQL क्वेरी ऑप्टिमाइज़ेशन पर बैकएंड इंटर्न को मेंटर किया।',
+          'प्रोडक्शन विश्वसनीयता के लिए इंसीडेंट रिस्पॉन्स और पोस्टमॉर्टम का नेतृत्व, P1 मीन-टाइम-टू-रिज़ॉल्यूशन को घटाया।'
+        ]
+      },
+      openleafIntern: {
         role: 'बैकएंड डेवलपर इंटर्न',
         location: 'ऑनसाइट - मुंबई, महाराष्ट्र',
-        date: 'मार्च 2026 - वर्तमान',
+        date: 'मार्च 2026 - जुलाई 2026',
         description: 'B2B/B2C लॉजिस्टिक्स प्रबंधन प्लेटफॉर्म के लिए उच्च-प्रदर्शन बैकएंड सेवाओं का निर्माण जो उद्यम खुदरा चैनलों में एंड-टू-एंड खरीद आदेश स्वचालन और आपूर्ति श्रृंखला ऑर्केस्ट्रेशन प्रदान करता है।',
         achievements: [
           'Blinkit, Swiggy Instamart, और Zepto जैसे प्लेटफॉर्म से मल्टी-चैनल ऑर्डर इनजेशन को संभालने वाले Go में वितरित PO ऑटोमेशन पाइपलाइन विकसित की।',
@@ -186,9 +212,22 @@ export const extraTranslations = {
   ja: {
     experience: {
       openleaf: {
+        role: 'ソフトウェア開発エンジニア',
+        location: 'オンサイト - ムンバイ、マハラシュトラ',
+        date: '2026年8月 - 現在',
+        description: 'B2B/B2C物流管理プラットフォームのバックエンドおよびプラットフォームインフラストラクチャをエンドツーエンドで担当し、エンタープライズ小売統合全体でシステム設計、信頼性、スケールを推進。',
+        achievements: [
+          'Blinkit、Swiggy Instamart、Zepto、および新しいマーケットプレイス統合にわたる大量の日次イベントを処理するGoベースの注文オーケストレーションサービスの設計とロールアウトを主導。',
+          'リリースの信頼性向上のため、コアバックエンドサービスのAWS上のデプロイとインフラプロビジョニングを担当。',
+          '注文量の増加と新しい小売チャネルに対応するため、PostgreSQLベースの在庫・レポーティングシステムを拡張。',
+          'サービスアーキテクチャ、コードレビュー基準、PostgreSQLクエリ最適化についてバックエンドインターンを指導。',
+          '本番環境の信頼性向上のためインシデント対応とポストモーテムを主導し、P1の平均解決時間を削減。'
+        ]
+      },
+      openleafIntern: {
         role: 'バックエンド開発インターン',
         location: 'オンサイト - ムンバイ、マハラシュトラ',
-        date: '2026年3月 - 現在',
+        date: '2026年3月 - 2026年7月',
         description: 'エンタープライズ小売チャネル全体でエンドツーエンドの発注自動化とサプライチェーンの調整を実現する、B2B/B2C物流管理プラットフォーム向けの高性能なバックエンドサービスの構築。',
         achievements: [
           'Blinkit、Swiggy Instamart、Zeptoなどのプラットフォームからのマルチチャネル注文の取り込みを処理する、Goでの分散型発注自動化パイプラインの開発。',

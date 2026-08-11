@@ -71,8 +71,8 @@ export const Timeline: FC = () => {
     setExpandedId(expandedId === id ? null : id)
   }
 
-  const getLocalizedExperience = (company: string) => {
-    const key = company.toLowerCase().replace(' hr services', '').replace(' ', '')
+  const getLocalizedExperience = (company: string, overrideKey?: string) => {
+    const key = overrideKey ?? company.toLowerCase().replace(' hr services', '').replace(' ', '')
     if (key in t.extra.experience) {
       return t.extra.experience[key as keyof typeof t.extra.experience]
     }
@@ -85,7 +85,7 @@ export const Timeline: FC = () => {
         <div className="space-y-0 border-b border-border">
           {experienceData.map((exp: Experience, idx: number) => {
             const isExpanded = expandedId === exp.id
-            const localized = getLocalizedExperience(exp.company)
+            const localized = getLocalizedExperience(exp.company, exp.translationKey)
             const roleText = localized?.role ?? exp.role
             const locationText = localized?.location ?? exp.location
             const dateText = localized?.date ?? exp.date
