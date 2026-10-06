@@ -33,10 +33,15 @@ export function Navbar() {
 
   const handleNavClick = (link: string) => {
     playKeystroke('standard')
+    const wasOpen = isOpen
     setIsOpen(false)
-    const element = document.querySelector(link)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+    const scrollToSection = () => document.querySelector(link)?.scrollIntoView({ behavior: 'smooth' })
+    // Closing the mobile panel reflows the fixed header; starting the smooth
+    // scroll before that collapse settles gets it cancelled mid-animation.
+    if (wasOpen) {
+      setTimeout(scrollToSection, 300)
+    } else {
+      scrollToSection()
     }
   }
 

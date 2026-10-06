@@ -166,7 +166,9 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html,
+  html {
+    scroll-padding-top: 4.5rem;
+  }
   body {
     overflow-x: clip;
   }
